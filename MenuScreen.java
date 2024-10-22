@@ -14,7 +14,7 @@ public class MenuScreen extends World
     
     //going to intruction screen
     public void goInstructions() {
-        Greenfoot.setWorld(new InstructionScreen());
+        Greenfoot.setWorld(new InstructionScreen(this));
     }
     
     //going to the game
