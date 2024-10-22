@@ -8,14 +8,23 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MenuScreen extends World
 {
-
-    /**
-     * Constructor for objects of class MenuScreen.
-     * 
-     */
     public MenuScreen()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(500, 700, 1); 
+        addObject(new Button(this::goInstructions, "Instructions"), 300, 360);
+        addObject(new Button(this::goHighScores, "High Scores"), 300, 310); 
+        addObject(new Button(this::goGame, "Start Game"), 300, 260);
+    }
+    
+    public void goInstructions() {
+        Greenfoot.setWorld(new InstructionScreen(this));
+    }
+    
+    //going to high score screen
+    public void goHighScores(){
+        Greenfoot.setWorld(new HighScore());  
+    }
+    public void goGame(){
+        Greenfoot.setWorld(new Game());
     }
 }
