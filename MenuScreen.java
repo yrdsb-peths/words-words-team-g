@@ -14,7 +14,7 @@ public class MenuScreen extends World
     
     //going to intruction screen
     public void goInstructions() {
-        Greenfoot.setWorld(new InstructionScreen());
+        Greenfoot.setWorld(new InstructionScreen(this));
     }
     
     //going to the game
@@ -23,6 +23,6 @@ public class MenuScreen extends World
     }
     
     public void goHighScores() {
-        Greenfoot.setWorld(new HighScore());
+        Greenfoot.setWorld(new HighScore(this));
     }
 }
