@@ -1,26 +1,52 @@
-import greenfoot.*;
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-public class Label extends Actor {
-    private GreenfootImage image;
-    private String text;
+public class Label extends Actor
+{
+    private String value;
     private int fontSize;
+    private Color lineColor = Color.BLACK;
+    private Color fillColor = Color.WHITE;
     
-    //setting text size
-    public Label(String text, int fontSize) {
-        this.text = text;
+    private static final Color transparent = new Color(0,0,0,0);
+
+    public Label(int value, int fontSize)
+    {
+        this(Integer.toString(value), fontSize);
+    }
+    
+    public Label(String value, int fontSize)
+    {
+        this.value = value;
         this.fontSize = fontSize;
         updateImage();
     }
 
-    //text
-    public void setText(String text) {
-        this.text = text;
+    public void setValue(String value)
+    {
+        this.value = value;
         updateImage();
     }
-
-    //changing image
-    private void updateImage() {
-        image = new GreenfootImage(text, fontSize, Color.BLACK, Color.WHITE);
-        setImage(image);
+    
+    public void setValue(int value)
+    {
+        this.value = Integer.toString(value);
+        updateImage();
+    }
+    
+    public void setLineColor(Color lineColor)
+    {
+        this.lineColor = lineColor;
+        updateImage();
+    }
+    
+    public void setFillColor(Color fillColor)
+    {
+        this.fillColor = fillColor;
+        updateImage();
+    }
+    
+    private void updateImage()
+    {
+        setImage(new GreenfootImage(value, fontSize, fillColor, transparent, lineColor));
     }
 }
