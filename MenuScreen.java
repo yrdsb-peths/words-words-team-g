@@ -1,6 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-
 public class MenuScreen extends World
 {    
     public MenuScreen()
@@ -21,9 +20,9 @@ public class MenuScreen extends World
     //going to the game
     public void goGame() {
         Greenfoot.setWorld(new Game());
-
-
-    public void goInstructions() {
-        Greenfoot.setWorld(new InstructionScreen(this));
+    }
+    
+    public void goHighScores() {
+        Greenfoot.setWorld(new HighScore());
     }
 }
