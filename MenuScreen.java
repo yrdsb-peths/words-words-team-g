@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MenuScreen extends World
 {
-
     public MenuScreen()
     {    
         super(500, 700, 1); 
@@ -16,7 +15,6 @@ public class MenuScreen extends World
         addObject(new Button(this::goHighScores, "High Scores"), 300, 310); 
         addObject(new Button(this::goGame, "Start Game"), 300, 260);
     }
-    
     
     public void goInstructions() {
         Greenfoot.setWorld(new InstructionScreen(this));
