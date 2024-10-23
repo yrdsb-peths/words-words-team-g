@@ -15,7 +15,9 @@ public class Game extends World
      */
     public Game()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(500, 700, 1);
+        setBackground(new GreenfootImage("Background.jpg"));
+        MainShip userShip = new MainShip(2);
+        addObject(userShip, 250, 600);
     }
 }
