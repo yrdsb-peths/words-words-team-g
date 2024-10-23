@@ -6,11 +6,7 @@ public class MenuScreen extends World
     {    
         //size of world
         super(500, 700, 1);
-<<<<<<< Updated upstream
         setBackground(new GreenfootImage("Background.jpg"));
-=======
-        setBackground(new GreenfootImage("Background.jpg"));(500, 700, 1); 
->>>>>>> Stashed changes
         //adding buttons
         addObject(new Button(this::goInstructions, "Instructions"), 250, 360);
         addObject(new Button(this::goHighScores, "High Scores"), 250, 310); 
