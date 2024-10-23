@@ -13,7 +13,7 @@ public class Game extends World
      * Constructor for objects of class Game.
      * 
      */
-    public Game()
+    public Game(int difficulty)
     {    
         super(500, 700, 1);
         setBackground(new GreenfootImage("Background.jpg"));

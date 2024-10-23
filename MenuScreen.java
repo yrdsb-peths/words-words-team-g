@@ -9,7 +9,7 @@ public class MenuScreen extends World
         setBackground(new GreenfootImage("Background.jpg")); 
         addObject(new Button(this::goInstructions, "Instructions"), 250, 360);
         addObject(new Button(this::goHighScores, "High Scores"), 250, 310); 
-        addObject(new Button(this::goGame, "Start Game"), 250, 260);
+        addObject(new Button(this::goDifficulty, "Start Game"), 250, 260);
         
     }
     
@@ -19,8 +19,8 @@ public class MenuScreen extends World
     }
     
     //going to the game
-    public void goGame() {
-        Greenfoot.setWorld(new Game());
+    public void goDifficulty() {
+        Greenfoot.setWorld(new ModeScreen());
     }
     
     public void goHighScores() {
