@@ -12,7 +12,7 @@ public class Button extends Actor {
         GreenfootImage buttonImage = new GreenfootImage("buttonLong_beige.png");
         
         //adding text
-        GreenfootImage textOverlay = new GreenfootImage(text, 24, Color.BLACK, new Color(0, 0, 0, 0));
+        GreenfootImage textOverlay = new GreenfootImage(text, 23, Color.BLACK, new Color(0, 0, 0, 0));
         
         //x and y values of text
         int textX = (buttonImage.getWidth() - textOverlay.getWidth()) / 2;

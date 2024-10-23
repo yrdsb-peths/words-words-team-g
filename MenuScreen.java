@@ -11,6 +11,7 @@ public class MenuScreen extends World
         addObject(new Button(this::goInstructions, "Instructions"), 250, 360);
         addObject(new Button(this::goHighScores, "High Scores"), 250, 310); 
         addObject(new Button(this::goGame, "Start Game"), 250, 260);
+        addObject(new Button(this::goCharacterSelection, "Character selection"), 250, 410);
         
     }
     
@@ -26,5 +27,9 @@ public class MenuScreen extends World
     
     public void goHighScores() {
         Greenfoot.setWorld(new HighScore(this));
+    }
+    
+    public void goCharacterSelection() {
+        Greenfoot.setWorld(new CharacterSelection());
     }
 }
