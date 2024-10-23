@@ -16,7 +16,8 @@ public class InstructionScreen extends World
     public InstructionScreen(World menuScreen)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(500, 700, 1); 
+        super(500, 700, 1);
+        setBackground(new GreenfootImage("Background.jpg"));
         this.menuScreen = menuScreen;
 
         // Create a label with the first instruction
