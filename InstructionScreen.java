@@ -6,9 +6,9 @@ public class InstructionScreen extends World
     private String[] instructions = {
         "Welcome to the game!",
         "type the words of the attacking ships to destroy them!",
-        "When user types the wrong letter, gun will get jammed",
+        "When user types the wrong letter, gun will get jammed for 1s",
         "User can only attack one ship until it is destroyed",
-        "one new enemy will be spawned each round" 
+        "one extra enemy will be spawned each round" 
     };
 
     private Label instructionLabel;
@@ -49,6 +49,6 @@ public class InstructionScreen extends World
     }
 
     public void goMenuScreen() {
-        Greenfoot.setWorld(menuScreen);
+        Greenfoot.setWorld(new MenuScreen());
     }
 }
