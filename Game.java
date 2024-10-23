@@ -17,5 +17,7 @@ public class Game extends World
     {    
         super(500, 700, 1);
         setBackground(new GreenfootImage("Background.jpg"));
+        MainShip userShip = new MainShip(2);
+        addObject(userShip, 250, 600);
     }
 }
