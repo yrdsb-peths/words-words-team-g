@@ -23,6 +23,6 @@ public class MenuScreen extends World
     }
     
     public void goHighScores() {
-        Greenfoot.setWorld(new HighScore());
+        Greenfoot.setWorld(new HighScore(this));
     }
 }
