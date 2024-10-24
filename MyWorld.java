@@ -7,9 +7,8 @@ public class MyWorld extends World {
     }
 
     public void makeWord() { // placeholder for making stuff fall down
-        Enemy enemy = new Enemy();
-        int  randomNum = Greenfoot.getRandomNumber(300);
-        enemy.setStartX(randomNum);
+        Enemy enemy = new Enemy(50, 50, 50);
+        int  randomNum = Greenfoot.getRandomNumber(300);    
         addObject(enemy, randomNum, 0);
     }
     public void act() { // press right key to make stuff fall down

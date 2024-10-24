@@ -23,18 +23,19 @@ public class CharacterSelection extends World
         
         //ship sizing 
         GreenfootImage spaceShip1 = new GreenfootImage("Spaceship1.png");
-        spaceShip1.scale(360, 120);
+        spaceShip1.scale(120, 360);
         
         GreenfootImage spaceShip2 = new GreenfootImage("Spaceship2.png");
-        spaceShip2.scale(400, 300);
+        spaceShip2.scale(300, 400);
         
         GreenfootImage spaceShip3 = new GreenfootImage("Spaceship3.png");
-        spaceShip3.scale(200, 240);
+        spaceShip3.scale(240, 200);
         
         //spaceships to cycle through when user presses next
         characters = new GreenfootImage[] { spaceShip1, spaceShip2, spaceShip3 };
         characterDisplay = new CharacterDisplay(characters[indexShips]);
         addObject(characterDisplay, 250, 150);
+        characterDisplay.setRotation(-90);
         
         powerLabel = new Label(powers[indexShips], 30);
         
