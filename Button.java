@@ -21,7 +21,7 @@ public class Button extends Actor {
         buttonImage.drawImage(textOverlay, textX, textY);
         
         //setting sound
-        buttonClickSound = new GreenfootSound("ButtonClick2.mp3");
+        buttonClickSound = new GreenfootSound("ButtonClick.mp3");
         
         setImage(buttonImage); // Set the final button image
     }
