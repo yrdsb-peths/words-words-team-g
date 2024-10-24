@@ -42,6 +42,7 @@ public class Game extends World
         {
             makeWord();
         }
+    }
     
     public void started() {
         // Ensure the music resumes when the world starts
