@@ -17,7 +17,7 @@ public class Game extends World
         gameMusic = new GreenfootSound("GameMusic.mp3");  
         MainShip userShip = new MainShip(2);
         addObject(userShip, 250, 600);
-        gameMusic.setVolume(0);
+        gameMusic.setVolume(10);
         gameMusic.playLoop();
     }
     

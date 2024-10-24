@@ -24,7 +24,7 @@ public class MenuScreen extends World
         addObject(new Button(this::goCharacterSelection, "Character selection"), 250, 410);
         
         //changing volume and allowing a loop play
-        menuMusic.setVolume(0);
+        menuMusic.setVolume(10);
         menuMusic.playLoop();
         menuMusic.pause();
         

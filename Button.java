@@ -30,6 +30,7 @@ public class Button extends Actor {
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
             //play button sound when button is pressed
+            buttonClickSound.setVolume(100);
             buttonClickSound.play();
             
             if (action != null) {
