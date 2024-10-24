@@ -9,6 +9,7 @@ public class InstructionScreen extends World
         "When user types the \n wrong letter, gun will get jammed",
         "User can only attack \n one ship until it is destroyed",
         "One new enemy will be \n spawned each round" 
+
     };
 
     private Label instructionLabel;
@@ -49,6 +50,6 @@ public class InstructionScreen extends World
     }
 
     public void goMenuScreen() {
-        Greenfoot.setWorld(menuScreen);
+        Greenfoot.setWorld(new MenuScreen());
     }
 }
