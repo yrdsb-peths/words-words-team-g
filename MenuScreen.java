@@ -40,15 +40,10 @@ public class MenuScreen extends World
     public void goInstructions() {
         Greenfoot.setWorld(new InstructionScreen(this));
     }
-    
-    //going to the game
-    public void goGame() {
-        Greenfoot.setWorld(new Game(1));
-        menuMusic.pause();
-    }
 
     //going to set difficulty
     public void goDifficulty() {
+        menuMusic.pause();
         Greenfoot.setWorld(new ModeScreen());
     }
     
