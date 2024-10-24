@@ -20,7 +20,9 @@ public class ModeScreen extends World
         addObject(new Button(this::mediumMode, "Medium"), 250, 310); 
         addObject(new Button(this::easyMode, "Easy"), 250, 260);
         addObject(new Button(this::extremeMode, "Extreme"), 250, 410);
-        
+        addObject(new Button(this::goMenu, "Menu"), 250, 460);
+        Label instructionLabel = new Label("Select a mode", 30);
+        addObject(instructionLabel, 250, 200);
     }
     
     public void easyMode()
@@ -46,5 +48,10 @@ public class ModeScreen extends World
     public void goGame(int difficulty)
     {
         Greenfoot.setWorld(new Game(difficulty));
+    }
+    
+    public void goMenu()
+    {
+        Greenfoot.setWorld(new MenuScreen());
     }
 }

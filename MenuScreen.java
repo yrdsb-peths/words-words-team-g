@@ -29,7 +29,7 @@ public class MenuScreen extends World
         menuMusic.pause();
         
         //adding instructions
-        instructionLabel = new Label("please select a character to begin!", 30);
+        instructionLabel = new Label("Please select a character to begin!", 30);
         
         // Add the instruction label to the screen
         addObject(instructionLabel, 250, 200);
