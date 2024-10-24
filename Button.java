@@ -3,6 +3,7 @@ import greenfoot.*;
 public class Button extends Actor {
     private Runnable action;
     private String text;
+    private GreenfootSound buttonClickSound;
 
     public Button(Runnable action, String text) {
         this.action = action;
@@ -19,12 +20,19 @@ public class Button extends Actor {
         int textY = (buttonImage.getHeight() - textOverlay.getHeight()) / 2;
         buttonImage.drawImage(textOverlay, textX, textY);
         
+        //setting sound
+        buttonClickSound = new GreenfootSound("ButtonClick.mp3");
+        
         setImage(buttonImage); // Set the final button image
     }
 
     //action
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
+            //play button sound when button is pressed
+            buttonClickSound.setVolume(100);
+            buttonClickSound.play();
+            
             if (action != null) {
                 action.run();
             }
