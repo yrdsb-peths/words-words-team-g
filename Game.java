@@ -23,10 +23,15 @@ public class Game extends World
 
     public void makeWord() { // placeholder for making stuff fall down
         Enemy enemy = new Enemy();
-        int  randomNum = Greenfoot.getRandomNumber(300);
+        int  randomNum = Greenfoot.getRandomNumber(500);
         enemy.setStartX(randomNum);
         addObject(enemy, randomNum, 0);
     }
+
+    public void removeEnemy(Enemy toRemove) { // removes object
+        removeObject(toRemove);
+    }
+
     public void act() { // press W key to make stuff fall down
         if(Greenfoot.isKeyDown("W"))
         {
