@@ -2,34 +2,47 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class Enemy extends Actor
 {
-    int changeSpeed = 50; // Higher value to make it slower
+    private int changeSpeed = 50; // Higher value to make it slower
 
-    int toX = 250; // Location of where it should go to
-    int toY = 600;
+    private int toX, toY; // Location of where object should go to
 
-    int startX;
-    int startY = 0;
+    private int startX;
+    private int startY = 0;
 
-    int changeX, changeY;
+    private int changeX, changeY;
 
-    public Enemy() { //Sets image
-        GreenfootImage red = new GreenfootImage("images/red.png");
+    private Game world;
+
+    private Label label;
+
+
+    public Enemy(int toX, int toY) { //Sets image
+        GreenfootImage red = new GreenfootImage(("images/red.png"));
         red.scale(50, 50);
-        setImage(red);
+        setImage((GreenfootImage) null);
+
+        this.toX = toX;
+        this.toY = toY;
     }
 
     public void setStartX(int x) {
         startX = x;
-        changeX = (int) (toX - startX) / changeSpeed;
-        changeY = (int) (toY - startY) / changeSpeed;
+        changeX = Math.round((toX - startX) / changeSpeed);
+        changeY = Math.round((toY - startY) / changeSpeed);
+    }
+
+    public void setLabel(Label label) {
+        this.label = label;
+        world = (Game) getWorld();
     }
 
     public void act() // Stuff falls down
     {
         setLocation(getX() + changeX, getY() + changeY);
+        label.setLocation(getX() + changeX, getY() + changeY);
         if(getY() >= toY) { // removes object if it is where the ship is
-            Game world = (Game) getWorld();
             world.removeObject(this);
+            world.removeObject(label);
         }
     }
 }

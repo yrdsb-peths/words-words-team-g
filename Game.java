@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Game extends World
 {
     private GreenfootSound gameMusic;
+    private int userShipX, userShipY;
 
     public Game(int difficulty)
     {    
@@ -22,19 +23,21 @@ public class Game extends World
         gameMusic.playLoop();
         
         //mainship
+        userShipX = 250;
+        userShipY = 600;
         MainShip userShip = new MainShip(2);
-        addObject(userShip, 250, 600);
+        addObject(userShip, userShipX, userShipY);
     }
 
     public void makeWord() { // placeholder for making stuff fall down
-        Enemy enemy = new Enemy();
+        Enemy enemy = new Enemy(userShipX, userShipY);
+        Label label = new Label("test", 20);
+        label.setLineColor(Color.RED);
         int  randomNum = Greenfoot.getRandomNumber(500);
         enemy.setStartX(randomNum);
         addObject(enemy, randomNum, 0);
-    }
-
-    public void removeEnemy(Enemy toRemove) { // removes object
-        removeObject(toRemove);
+        addObject(label, randomNum, 0);
+        enemy.setLabel(label);
     }
 
     public void act() { // press W key to make stuff fall down
