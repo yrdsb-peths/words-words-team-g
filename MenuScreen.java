@@ -4,36 +4,46 @@ public class MenuScreen extends World
 {    
     //Menu music
     private GreenfootSound menuMusic;
+    private Label instructionLabel;
     
     //menu of buttons
     public MenuScreen()
     {    
+        
         //size of world
         super(500, 700, 1);
-        setBackground(new GreenfootImage("Background.jpg")); 
+        setBackground(new GreenfootImage("Background.jpg"));
+        
+        //setting music
         menuMusic = new GreenfootSound("MenuScreenMusic.mp3");  
+        
+        //adding buttons
         addObject(new Button(this::goInstructions, "Instructions"), 250, 360);
         addObject(new Button(this::goHighScores, "High Scores"), 250, 310); 
         addObject(new Button(this::goDifficulty, "Start Game"), 250, 260);
         addObject(new Button(this::goCharacterSelection, "Character selection"), 250, 410);
-        menuMusic.setVolume(0);
+        
+        //changing volume and allowing a loop play
+        menuMusic.setVolume(10);
         menuMusic.playLoop();
         menuMusic.pause();
+        
+        //adding instructions
+        instructionLabel = new Label("please select a character to begin!", 30);
+        
+        // Add the instruction label to the screen
+        addObject(instructionLabel, 250, 200);
+
     }
     
     //going to intruction screen
     public void goInstructions() {
         Greenfoot.setWorld(new InstructionScreen(this));
     }
-    
-    //going to the game
-    public void goGame() {
-        Greenfoot.setWorld(new Game(1));
-        menuMusic.pause();
-    }
 
     //going to set difficulty
     public void goDifficulty() {
+        menuMusic.pause();
         Greenfoot.setWorld(new ModeScreen());
     }
     
