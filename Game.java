@@ -12,13 +12,18 @@ public class Game extends World
 
     public Game(int difficulty)
     {    
+        //creating new world
         super(500, 700, 1);
         setBackground(new GreenfootImage("Background.jpg"));
+        
+        //music
         gameMusic = new GreenfootSound("GameMusic.mp3");  
+        gameMusic.setVolume(50);
+        gameMusic.playLoop();
+        
+        //mainship
         MainShip userShip = new MainShip(2);
         addObject(userShip, 250, 600);
-        gameMusic.setVolume(10);
-        gameMusic.playLoop();
     }
     
     public void started() {

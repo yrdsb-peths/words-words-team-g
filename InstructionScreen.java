@@ -3,6 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class InstructionScreen extends World
 {
     private World menuScreen;
+    
+    //instruction list
     private String[] instructions = {
         "Welcome to the game!",
         "Type the words of the \n attacking ships to destroy them!",
@@ -11,7 +13,8 @@ public class InstructionScreen extends World
         "One new enemy will be \n spawned each round" 
 
     };
-
+    
+    //used variables 
     private Label instructionLabel;
     private int index = 0;
     int button_Xint = 260;
@@ -35,6 +38,7 @@ public class InstructionScreen extends World
         addObject(new Button(this::goMenuScreen, "Menu"), 250, button_Xint + 100);
     }
 
+    //go to the next instruction lines by changing index
     public void nextInstruction() {
         if (index < instructions.length - 1) {
             index++;
@@ -42,6 +46,7 @@ public class InstructionScreen extends World
         }
     }
 
+    //go to previous instruction line by changing index
     public void previousInstruction() {
         if (index > 0) {
             index--;
@@ -49,6 +54,7 @@ public class InstructionScreen extends World
         }
     }
 
+    //going back to the menu screen
     public void goMenuScreen() {
         Greenfoot.setWorld(new MenuScreen());
     }

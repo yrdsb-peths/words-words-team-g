@@ -21,9 +21,6 @@ public class CharacterSelection extends World
         super(500, 700, 1);
         setBackground(new GreenfootImage("Background.jpg"));
         
-        
-    
-        
         //ship sizing 
         GreenfootImage spaceShip1 = new GreenfootImage("Spaceship1.png");
         spaceShip1.scale(360, 120);
@@ -40,6 +37,7 @@ public class CharacterSelection extends World
         addObject(characterDisplay, 250, 150);
         
         powerLabel = new Label(powers[indexShips], 30);
+        
         // Add the instruction label to the screen
         addObject(powerLabel, 250, 550);
         
@@ -54,7 +52,7 @@ public class CharacterSelection extends World
         
     }
     
-    
+    //going to the next character and updaring the info about ship too
      public void nextCharacter() {
         if (indexShips < characters.length - 1) {
             indexShips++;
@@ -63,6 +61,7 @@ public class CharacterSelection extends World
         }
     }
 
+    //going to the previous character and updating the info about ship too
     public void previousCharacter() {
         if (indexShips > 0) {
             indexShips--;
@@ -75,6 +74,7 @@ public class CharacterSelection extends World
         characterDisplay.setImage(characters[indexShips]);  // Set the image of the actor to the current character image
     }
     
+    //back to the menu screen
     public void goMenuScreen() {
         Greenfoot.setWorld(new MenuScreen());
     }
