@@ -4,10 +4,13 @@ public class Explosion extends Actor {
   private GreenfootImage[] explosionImage;
   private int totalframe = 10;
   private int currentframe = 0;
-  private int index = 0;
+  SimpleTimer animationTimer = new SimpleTimer();
+  
 
   public Explosion() {
     loadimage();
+    setImage(explosionImage[0]);
+    animationTimer.mark();
   }
 
   public void act() {
@@ -22,6 +25,11 @@ public class Explosion extends Actor {
   }
 
   public void animateimage() {
+    if(animationTimer.millisElapsed() < 40)
+    {
+        return;
+    }
+    animationTimer.mark();
     if (currentframe < explosionImage.length) {
       setImage(explosionImage[currentframe]);
       currentframe++;
