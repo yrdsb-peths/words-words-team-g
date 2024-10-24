@@ -14,7 +14,7 @@ public class MenuScreen extends World
         menuMusic = new GreenfootSound("MenuScreenMusic.mp3");  
         addObject(new Button(this::goInstructions, "Instructions"), 250, 360);
         addObject(new Button(this::goHighScores, "High Scores"), 250, 310); 
-        addObject(new Button(this::goGame, "Start Game"), 250, 260);
+        addObject(new Button(this::goDifficulty, "Start Game"), 250, 260);
         addObject(new Button(this::goCharacterSelection, "Character selection"), 250, 410);
         menuMusic.setVolume(0);
         menuMusic.playLoop();
@@ -30,6 +30,11 @@ public class MenuScreen extends World
     public void goGame() {
         Greenfoot.setWorld(new Game());
         menuMusic.pause();
+    }
+
+    //going to set difficulty
+    public void goDifficulty() {
+        Greenfoot.setWorld(new ModeScreen());
     }
     
     public void goHighScores() {
