@@ -49,10 +49,10 @@ public class Game extends World
     
     public void createEnemies()
     {
-        if(enemyHolder.size() < wave && timer.millisElapsed()>1000 && clearedWave == true)
+        if(enemyHolder.size() < wave && timer.millisElapsed()>1500 && clearedWave == true)
         {
             int startX = Greenfoot.getRandomNumber(500);
-            Enemy enemy = new Enemy(250, 600, startX);
+            Enemy enemy = new Enemy(250, 600);
             addObject(enemy, startX, 0);
             enemyHolder.add(enemy);
             addObject(enemy.label, startX, 0);
