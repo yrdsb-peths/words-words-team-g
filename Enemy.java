@@ -12,6 +12,7 @@ public class Enemy extends Actor
         setImage(enemyShip);
         this.toX = toX;
         this.toY = toY;
+        label = new Label("test", 50);
         moveTimer.mark();
     }
 
@@ -27,10 +28,6 @@ public class Enemy extends Actor
             getWorld().removeObject(label);
             getWorld().removeObject(this);
         }
-    }
-    
-    public void setLabel(Label label) {
-        this.label = label;
     }
 
     public void moveEnemy()
