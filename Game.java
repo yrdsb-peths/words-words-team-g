@@ -44,7 +44,10 @@ public class Game extends World
             {
                 int startX = Greenfoot.getRandomNumber(500);
                 Enemy enemy = new Enemy(250, 600, startX);
+                Label label = new Label("test", 50);
                 addObject(enemy, startX, 0);
+                addObject(label, startX, 0);
+                enemy.setLabel(label);
             }
             clearedWave = false;
         }

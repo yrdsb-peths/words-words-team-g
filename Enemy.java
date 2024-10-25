@@ -4,6 +4,7 @@ public class Enemy extends Actor
 {   
     int toX, toY;
     SimpleTimer moveTimer = new SimpleTimer();
+    private Label label;
     
     public Enemy(int toX, int toY,int startX) { //Sets image
         GreenfootImage enemyShip = new GreenfootImage("EnemySpaceship.png");
@@ -23,10 +24,15 @@ public class Enemy extends Actor
         moveEnemy();
         if(getY() > 700)
         {
+            getWorld().removeObject(label);
             getWorld().removeObject(this);
         }
     }
     
+    public void setLabel(Label label) {
+        this.label = label;
+    }
+
     public void moveEnemy()
     {
         if(moveTimer.millisElapsed() < 40)
@@ -35,5 +41,6 @@ public class Enemy extends Actor
         }
         moveTimer.mark();
         move(2);
+        label.setLocation(getX(), getY());
     }
 }
