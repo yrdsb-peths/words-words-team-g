@@ -29,16 +29,6 @@ public class Game extends World
         userShip.turnTowards(250, 0);
     }
 
-    public void makeWord() { // placeholder for making stuff fall down
-        int  randomNum = Greenfoot.getRandomNumber(500);
-        Enemy enemy = new Enemy(250, 600, randomNum);
-        addObject(enemy, randomNum, 0);
-    }
-
-    public void removeEnemy(Enemy toRemove) { // removes object
-        removeObject(toRemove);
-    }
-
     public void act() { // press W key to make stuff fall down
         if(Greenfoot.isKeyDown("W"))
         {
