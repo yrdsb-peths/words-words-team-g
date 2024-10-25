@@ -1,10 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.Random; 
 
 public class MainShip extends Actor
 {
-    int wave = 1;
-    boolean clearedWave = true;
     public MainShip(int spaceShip)
     {
         GreenfootImage spaceShipImage = new GreenfootImage("Spaceship" + spaceShip + ".png");
@@ -21,28 +18,15 @@ public class MainShip extends Actor
             spaceShipImage.scale(100, 80);
         }
         setImage(spaceShipImage); 
-        
     }
     
     public void act()
     {
-        createEnemies();
+        
     }
     
-    public void createEnemies()
+    public void turnTowards(Enemy enemy)
     {
-        if(clearedWave == true)
-        {
-            turnTowards(250, 0);
-            for(int i = 0; i < wave; i++)
-            {
-                Random rand = new Random();
-                int startX = rand.nextInt(501);
-                Enemy enemy = new Enemy(250, 600, startX);
-                Game gameWorld = (Game)getWorld();
-                gameWorld.addObject(enemy, startX, 0);
-            }
-            clearedWave = false;
-        }
+        
     }
 }

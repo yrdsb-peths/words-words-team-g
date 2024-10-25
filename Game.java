@@ -9,6 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Game extends World
 {
     private GreenfootSound gameMusic;
+    int wave = 1;
+    boolean clearedWave = true;
     
     public Game(int difficulty)
     {    
@@ -24,12 +26,12 @@ public class Game extends World
         //mainship
         MainShip userShip = new MainShip(2);
         addObject(userShip, 250, 600);
+        userShip.turnTowards(250, 0);
     }
 
     public void makeWord() { // placeholder for making stuff fall down
-        Enemy enemy = new Enemy();
         int  randomNum = Greenfoot.getRandomNumber(500);
-        enemy.setStartX(randomNum);
+        Enemy enemy = new Enemy(250, 600, randomNum);
         addObject(enemy, randomNum, 0);
     }
 
@@ -40,7 +42,21 @@ public class Game extends World
     public void act() { // press W key to make stuff fall down
         if(Greenfoot.isKeyDown("W"))
         {
-            makeWord();
+            createEnemies();
+        }
+    }
+    
+    public void createEnemies()
+    {
+        if(clearedWave == true)
+        {
+            for(int i = 0; i < wave; i++)
+            {
+                int startX = Greenfoot.getRandomNumber(500);
+                Enemy enemy = new Enemy(250, 600, startX);
+                addObject(enemy, startX, 0);
+            }
+            clearedWave = false;
         }
     }
     
