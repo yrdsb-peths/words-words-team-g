@@ -8,14 +8,55 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Game extends World
 {
-
-    /**
-     * Constructor for objects of class Game.
-     * 
-     */
-    public Game()
+    private GreenfootSound gameMusic;
+    int wave = 1;
+    boolean clearedWave = true;
+    
+    public Game(int difficulty)
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        //creating new world
+        super(500, 700, 1, false);
+        setBackground(new GreenfootImage("Background.jpg"));
+        
+        //music
+        gameMusic = new GreenfootSound("GameMusic.mp3");  
+        gameMusic.setVolume(50);
+        gameMusic.playLoop();
+        
+        //mainship
+        MainShip userShip = new MainShip(2);
+        addObject(userShip, 250, 600);
+        userShip.turnTowards(250, 0);
+    }
+
+    public void act() { // press W key to make stuff fall down
+        if(Greenfoot.isKeyDown("W"))
+        {
+            createEnemies();
+        }
+    }
+    
+    public void createEnemies()
+    {
+        if(clearedWave == true)
+        {
+            for(int i = 0; i < wave; i++)
+            {
+                int startX = Greenfoot.getRandomNumber(500);
+                Enemy enemy = new Enemy(250, 600, startX);
+                addObject(enemy, startX, 0);
+            }
+            clearedWave = false;
+        }
+    }
+    
+    public void started() {
+        // Ensure the music resumes when the world starts
+        gameMusic.playLoop();
+    }
+    
+    public void stopped() {
+        // Pause the music when the world is stopped
+        gameMusic.pause();
     }
 }
