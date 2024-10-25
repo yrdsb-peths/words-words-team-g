@@ -6,7 +6,7 @@ public class Enemy extends Actor
     SimpleTimer moveTimer = new SimpleTimer();
     private Label label;
     
-    public Enemy(int toX, int toY,int startX) { //Sets image
+    public Enemy(int toX, int toY) { //Sets image
         GreenfootImage enemyShip = new GreenfootImage("EnemySpaceship.png");
         enemyShip.scale(60, 50);
         setImage(enemyShip);

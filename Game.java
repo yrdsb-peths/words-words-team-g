@@ -43,7 +43,7 @@ public class Game extends World
             for(int i = 0; i < wave; i++)
             {
                 int startX = Greenfoot.getRandomNumber(500);
-                Enemy enemy = new Enemy(250, 600, startX);
+                Enemy enemy = new Enemy(250, 600);
                 Label label = new Label("test", 50);
                 addObject(enemy, startX, 0);
                 addObject(label, startX, 0);
