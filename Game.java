@@ -1,4 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Write a description of class Game here.
@@ -11,7 +13,8 @@ public class Game extends World
     private GreenfootSound gameMusic;
     int wave = 1;
     boolean clearedWave = true;
-    
+    Set<Enemy> enemyHolder = new HashSet<>();
+    SimpleTimer timer = new SimpleTimer();
     public Game(int difficulty)
     {    
         //creating new world
@@ -27,6 +30,7 @@ public class Game extends World
         MainShip userShip = new MainShip(2);
         addObject(userShip, 250, 600);
         userShip.turnTowards(250, 0);
+        timer.mark();
     }
 
     public void makeWord() { // placeholder for making stuff fall down
@@ -40,22 +44,31 @@ public class Game extends World
     }
 
     public void act() { // press W key to make stuff fall down
-        if(Greenfoot.isKeyDown("W"))
+        createEnemies();
+        checkCleared();
+    }
+    
+    public void checkCleared()
+    {
+        if(enemyHolder.isEmpty() && clearedWave == false)
         {
-            createEnemies();
+            wave++;
+            clearedWave = true;
         }
     }
     
     public void createEnemies()
     {
-        if(clearedWave == true)
+        if(enemyHolder.size() < wave && timer.millisElapsed()>1000 && clearedWave == true)
         {
-            for(int i = 0; i < wave; i++)
-            {
-                int startX = Greenfoot.getRandomNumber(500);
-                Enemy enemy = new Enemy(250, 600, startX);
-                addObject(enemy, startX, 0);
-            }
+            int startX = Greenfoot.getRandomNumber(500);
+            Enemy enemy = new Enemy(250, 600, startX);
+            addObject(enemy, startX, 0);
+            enemyHolder.add(enemy);
+            timer.mark();
+        }
+        if(enemyHolder.size() == wave)
+        {
             clearedWave = false;
         }
     }
