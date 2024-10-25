@@ -23,9 +23,11 @@ public class Enemy extends Actor
             turnTowards(toX, toY);
         }
         moveEnemy();
-        if(getY() > 700)
+        if(isTouching(MainShip.class))
         {
             getWorld().removeObject(label);
+            Game game = (Game) getWorld();
+            game.enemyHolder.remove(this);
             getWorld().removeObject(this);
         }
     }
