@@ -1,35 +1,39 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class Enemy extends Actor
-{
-    int changeSpeed = 50; // Higher value to make it slower
-
-    int toX = 250; // Location of where it should go to
-    int toY = 600;
-
-    int startX;
-    int startY = 0;
-
-    int changeX, changeY;
-
-    public Enemy() { //Sets image
-        GreenfootImage red = new GreenfootImage("images/red.png");
-        red.scale(50, 50);
-        setImage(red);
-    }
-
-    public void setStartX(int x) {
-        startX = x;
-        changeX = (int) (toX - startX) / changeSpeed;
-        changeY = (int) (toY - startY) / changeSpeed;
+{   
+    int toX, toY;
+    SimpleTimer moveTimer = new SimpleTimer();
+    
+    public Enemy(int toX, int toY,int startX) { //Sets image
+        GreenfootImage enemyShip = new GreenfootImage("EnemySpaceship.png");
+        enemyShip.scale(60, 50);
+        setImage(enemyShip);
+        this.toX = toX;
+        this.toY = toY;
+        moveTimer.mark();
     }
 
     public void act() // Stuff falls down
     {
-        setLocation(getX() + changeX, getY() + changeY);
-        if(getY() >= toY) { // removes object if it is where the ship is
-            Game world = (Game) getWorld();
-            world.removeObject(this);
+        if(getY()<toY)
+        {
+            turnTowards(toX, toY);
         }
+        moveEnemy();
+        if(getY() > 700)
+        {
+            getWorld().removeObject(this);
+        }
+    }
+    
+    public void moveEnemy()
+    {
+        if(moveTimer.millisElapsed() < 40)
+        {
+            return;
+        }
+        moveTimer.mark();
+        move(2);
     }
 }

@@ -9,11 +9,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Game extends World
 {
     private GreenfootSound gameMusic;
-
+    
     public Game(int difficulty)
     {    
         //creating new world
-        super(500, 700, 1);
+        super(500, 700, 1, false);
         setBackground(new GreenfootImage("Background.jpg"));
         
         //music
