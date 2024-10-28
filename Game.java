@@ -65,26 +65,18 @@ public class Game extends World
                     currentWord = null;
                 }
                 else {
-                    if(lastPressed.equals(currentWord.substring(0,1))) {
+                    if(lastPressed.equals(currentWord.substring(0,1))) { // if input matches letter to be typed, remove it
                         subtractLetter();
                     }
                 }
             }
         }
-
-
-
-
-        //word is selected as that, user can only type that word
-
-        //backspace makes the word null, can pick another word to write
-
     }
     
     public void selectWord(String lastPressed) {
         if(lastPressed != null) {
             for(String word : enemyHolder.keySet()) {
-                if(word.substring(0,1).equals(lastPressed)) {
+                if(word.substring(0,1).equals(lastPressed)) { // finds first word that starts with the letter the user inputed
                     currentWord = word;
                     subtractLetter();
                     break;
@@ -103,11 +95,11 @@ public class Game extends World
             currentWord = null;
         }
         else {
-            String newWord = currentWord.substring(1); //remove first letter
+            String newWord = currentWord.substring(1); //remove first letter from label
             enemy.label.setValue(newWord);
 
             enemyHolder.remove(currentWord);
-            enemyHolder.put(newWord, enemy);
+            enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
 
             currentWord = newWord;
         }
@@ -152,12 +144,12 @@ public class Game extends World
     public void removeFromMap(Enemy enemy) {
         String mapKey = "";
         for(String key : enemyHolder.keySet()) {
-            if(enemyHolder.get(key).equals(enemy)) {
+            if(enemyHolder.get(key).equals(enemy)) { // finds string that corresponds to the specific enemy
                 mapKey = key;
             }
         }
         if(mapKey != "") {
-            enemyHolder.remove(mapKey);
+            enemyHolder.remove(mapKey); // removes the enemy from the map
         }
     }
 
