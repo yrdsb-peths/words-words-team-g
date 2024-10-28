@@ -1,6 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.io.*;
 
 /**
  * Write a description of class Game here.
@@ -15,6 +15,8 @@ public class Game extends World
     boolean clearedWave = true;
     Set<Enemy> enemyHolder = new HashSet<>();
     SimpleTimer timer = new SimpleTimer();
+    ArrayList<String> words = new ArrayList<>();
+
     public Game(int difficulty)
     {    
         //creating new world
@@ -31,6 +33,21 @@ public class Game extends World
         addObject(userShip, 250, 600);
         userShip.turnTowards(250, 0);
         timer.mark();
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("words.txt"));
+            String currentLine;
+            do {
+                currentLine = bufferedReader.readLine();
+                words.add(currentLine);
+                currentLine = bufferedReader.readLine();
+            } while(currentLine != null);
+            bufferedReader.close();
+        } 
+        catch (IOException e) {
+            System.out.println("Error reading textfile");
+            System.out.println("Error: " + e.toString());
+        }
     }
 
     public void act() { // press W key to make stuff fall down
