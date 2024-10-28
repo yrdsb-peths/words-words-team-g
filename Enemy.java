@@ -5,7 +5,6 @@ public class Enemy extends Actor
     int toX, toY;
     SimpleTimer moveTimer = new SimpleTimer();
     Label label;
-    
     public Enemy(int toX, int toY) { //Sets image
         GreenfootImage enemyShip = new GreenfootImage("EnemySpaceship.png");
         enemyShip.scale(70, 60);
@@ -23,17 +22,7 @@ public class Enemy extends Actor
             turnTowards(toX, toY);
         }
         moveEnemy();
-        if(isTouching(MainShip.class)) // remove if touching ship
-        {
-            MainShip ship = (MainShip)getOneIntersectingObject(MainShip.class);
-            Game game = (Game) getWorld();
-            if(game.hasForcefield == true)
-            {
-                Forcefield forcefield = new Forcefield();
-                getWorld().addObject(forcefield, ship.getX(), ship.getY());
-            }
-            removeEnemy();
-        }
+        checkTouching();
     }
 
     public void moveEnemy()
@@ -54,5 +43,20 @@ public class Enemy extends Actor
         game.enemyHolder.remove(this);
         game.hasForcefield = false;
         getWorld().removeObject(this);
+    }
+    
+    public void checkTouching()
+    {
+        if(isTouching(MainShip.class)) // remove if touching ship
+        {
+            MainShip ship = (MainShip)getOneIntersectingObject(MainShip.class);
+            Game game = (Game) getWorld();
+            if(game.hasForcefield == true)
+            {
+                Forcefield forcefield = new Forcefield();
+                getWorld().addObject(forcefield, ship.getX(), ship.getY());
+            }
+            removeEnemy();
+        }
     }
 }
