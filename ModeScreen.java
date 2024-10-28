@@ -47,7 +47,8 @@ public class ModeScreen extends World
     
     public void goGame(int difficulty)
     {
-        Greenfoot.setWorld(new Game(difficulty));
+        MenuScreen menu = new MenuScreen();
+        Greenfoot.setWorld(new Game(difficulty, menu.whichShip));
     }
     
     public void goMenu()

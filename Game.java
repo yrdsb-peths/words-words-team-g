@@ -17,7 +17,7 @@ public class Game extends World
     SimpleTimer timer = new SimpleTimer();
     ArrayList<String> words = new ArrayList<>();
 
-    public Game(int difficulty)
+    public Game(int difficulty,int whichShip)
     {    
         //creating new world
         super(500, 700, 1, false);
@@ -29,7 +29,7 @@ public class Game extends World
         gameMusic.playLoop();
         
         //mainship
-        MainShip userShip = new MainShip(2);
+        MainShip userShip = new MainShip(whichShip);
         addObject(userShip, 250, 600);
         userShip.turnTowards(250, 0);
         timer.mark();

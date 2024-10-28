@@ -23,13 +23,13 @@ public class CharacterSelection extends World
         
         //ship sizing 
         GreenfootImage spaceShip1 = new GreenfootImage("Spaceship1.png");
-        spaceShip1.scale(120, 360);
+        spaceShip1.scale(120, 240);
         
         GreenfootImage spaceShip2 = new GreenfootImage("Spaceship2.png");
-        spaceShip2.scale(300, 400);
+        spaceShip2.scale(140, 175);
         
         GreenfootImage spaceShip3 = new GreenfootImage("Spaceship3.png");
-        spaceShip3.scale(240, 200);
+        spaceShip3.scale(180, 140);
         
         //spaceships to cycle through when user presses next
         characters = new GreenfootImage[] { spaceShip1, spaceShip2, spaceShip3 };
@@ -77,6 +77,8 @@ public class CharacterSelection extends World
     
     //back to the menu screen
     public void goMenuScreen() {
+        MenuScreen menu = new MenuScreen();
+        menu.whichShip = indexShips + 1;
         Greenfoot.setWorld(new MenuScreen());
     }
 }
