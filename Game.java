@@ -66,28 +66,45 @@ public class Game extends World
     
     public void createEnemies()
     {
+        wave = 5;
         if(enemyHolder.size() < wave && timer.millisElapsed()>1500 && clearedWave == true)
         {
             int startX = Greenfoot.getRandomNumber(500);
             Enemy enemy = new Enemy(250, 600);
             addObject(enemy, startX, 0);
-            enemyHolder.put(enemy.toString(), enemy);
             addObject(enemy.label, startX, 0);
             timer.mark();
 
             int randomWordIndex = Greenfoot.getRandomNumber(words.size() - 1);
+            String randomWord = words.get(randomWordIndex);
+            enemy.label.setValue(randomWord);
+            enemy.originalWord = randomWord;
 
-            enemy.label.setValue(words.get(randomWordIndex));
+            enemyHolder.put(randomWord, enemy);
+
+
         }
+
 
         if(enemyHolder.size() == wave)
         {
             clearedWave = false;
         }
     }
-    
-    public boolean inEnemySet() {
-        
+
+    public void removeFromMap(Enemy enemy) {
+        String mapKey = "";
+        for(String key : enemyHolder.keySet()) {
+            if(enemyHolder.get(key).equals(enemy)) {
+                mapKey = key;
+            }
+        }
+        if(mapKey != "") {
+            enemyHolder.remove(mapKey);
+            for(String key : enemyHolder.keySet()) {
+                System.out.println(key + ", " + enemyHolder.get(key).originalWord);
+            }
+        }
     }
 
     public void started() {
