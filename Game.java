@@ -65,9 +65,7 @@ public class Game extends World
                     currentWord = null;
                 }
                 else {
-                    System.out.println(1);
                     if(lastPressed.equals(currentWord.substring(0,1))) {
-                        System.out.println(2);
                         subtractLetter();
                     }
                 }
@@ -102,6 +100,7 @@ public class Game extends World
             removeFromMap(enemy);
             removeObject(enemy.label);
             removeObject(enemy);
+            currentWord = null;
         }
         else {
             String newWord = currentWord.substring(1); //remove first letter
