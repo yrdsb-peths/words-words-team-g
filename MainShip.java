@@ -7,15 +7,15 @@ public class MainShip extends Actor
         GreenfootImage spaceShipImage = new GreenfootImage("Spaceship" + spaceShip + ".png");
         if(spaceShip == 1)
         {
-            spaceShipImage.scale(50, 150);
+            spaceShipImage.scale(70, 140);
         }
         else if(spaceShip == 2)
         {
-            spaceShipImage.scale(130, 180);
+            spaceShipImage.scale(95, 110);
         }
         else
         {
-            spaceShipImage.scale(100, 80);
+            spaceShipImage.scale(100, 85);
         }
         setImage(spaceShipImage); 
     }
@@ -25,8 +25,8 @@ public class MainShip extends Actor
         
     }
     
-    public void turnTowards(Enemy enemy)
+    public void turnToEnemy(Enemy enemy)
     {
-        
+        turnTowards(enemy.getX(), enemy.getY());
     }
 }
