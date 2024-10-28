@@ -74,7 +74,11 @@ public class Game extends World
             enemyHolder.add(enemy);
             addObject(enemy.label, startX, 0);
             timer.mark();
+
+            int randomWordIndex = Greenfoot.getRandomNumber(words.size() - 1);
+            enemy.label.setValue(words.get(randomWordIndex));
         }
+
         if(enemyHolder.size() == wave)
         {
             clearedWave = false;
