@@ -26,12 +26,10 @@ public class Enemy extends Actor
         moveEnemy();
         if(isTouching(MainShip.class)) // remove if touching ship
         {
+            getWorld().removeObject(label);
             Game game = (Game) getWorld();
-            game.currentWord = null;
-            System.out.println(game.currentWord);
-            game.removeObject(label);
             game.removeFromMap(this);
-            game.removeObject(this);
+            getWorld().removeObject(this);
         }
     }
 

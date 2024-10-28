@@ -61,7 +61,7 @@ public class Game extends World
                 return;
             }
             else {
-                if(lastPressed.equals("backspace")) { // allows user to select another word
+                if(lastPressed.equals("Backspace")) { // allows user to select another word
                     currentWord = null;
                 }
                 else {
@@ -130,6 +130,8 @@ public class Game extends World
             enemy.label.setValue(randomWord);
             enemy.originalWord = randomWord;
             enemyHolder.put(randomWord, enemy);
+
+
         }
 
 
