@@ -28,7 +28,6 @@ public class Enemy extends Actor
         {
             getWorld().removeObject(label);
             Game game = (Game) getWorld();
-            //game.enemyHolder.remove(this);
             game.removeFromMap(this);
             getWorld().removeObject(this);
         }

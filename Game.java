@@ -16,6 +16,7 @@ public class Game extends World
     HashMap<String, Enemy> enemyHolder = new HashMap<>();
     SimpleTimer timer = new SimpleTimer();
     ArrayList<String> words = new ArrayList<>();
+    String currentWord;
 
     public Game(int difficulty,int whichShip)
     {    
@@ -53,8 +54,66 @@ public class Game extends World
     public void act() {
         createEnemies();
         checkCleared();
+        String lastPressed = Greenfoot.getKey();
+        if(lastPressed != null) {
+            if(currentWord == null) { // If word has not been selected
+                selectWord(lastPressed);
+                return;
+            }
+            else {
+                if(lastPressed.equals("Backspace")) { // allows user to select another word
+                    currentWord = null;
+                }
+                else {
+                    System.out.println(1);
+                    if(lastPressed.equals(currentWord.substring(0,1))) {
+                        System.out.println(2);
+                        subtractLetter();
+                    }
+                }
+            }
+        }
+
+
+
+
+        //word is selected as that, user can only type that word
+
+        //backspace makes the word null, can pick another word to write
+
     }
     
+    public void selectWord(String lastPressed) {
+        if(lastPressed != null) {
+            for(String word : enemyHolder.keySet()) {
+                if(word.substring(0,1).equals(lastPressed)) {
+                    currentWord = word;
+                    subtractLetter();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void subtractLetter() {
+        Enemy enemy = enemyHolder.get(currentWord); // specific enemy
+
+        if(currentWord.length() <= 1) { // remove everything if word is compeleted
+            removeFromMap(enemy);
+            removeObject(enemy.label);
+            removeObject(enemy);
+        }
+        else {
+            String newWord = currentWord.substring(1); //remove first letter
+            enemy.label.setValue(newWord);
+
+            enemyHolder.remove(currentWord);
+            enemyHolder.put(newWord, enemy);
+
+            currentWord = newWord;
+        }
+    }
+
     public void checkCleared()
     {
         if(enemyHolder.isEmpty() && clearedWave == false)
@@ -79,7 +138,6 @@ public class Game extends World
             String randomWord = words.get(randomWordIndex);
             enemy.label.setValue(randomWord);
             enemy.originalWord = randomWord;
-
             enemyHolder.put(randomWord, enemy);
 
 
@@ -101,9 +159,6 @@ public class Game extends World
         }
         if(mapKey != "") {
             enemyHolder.remove(mapKey);
-            for(String key : enemyHolder.keySet()) {
-                System.out.println(key + ", " + enemyHolder.get(key).originalWord);
-            }
         }
     }
 
