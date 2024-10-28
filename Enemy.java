@@ -16,14 +16,14 @@ public class Enemy extends Actor
         label = new Label("test", 30);
     }
 
-    public void act() // Stuff falls down
+    public void act()
     {
         if(getY()<toY)
         {
             turnTowards(toX, toY);
         }
         moveEnemy();
-        if(isTouching(MainShip.class))
+        if(isTouching(MainShip.class)) // remove if touching ship
         {
             getWorld().removeObject(label);
             Game game = (Game) getWorld();
@@ -38,7 +38,7 @@ public class Enemy extends Actor
         {
             return;
         }
-        moveTimer.mark();
+        moveTimer.mark(); // move enemy and label
         move(2);
         label.setLocation(getX(), getY());
     }

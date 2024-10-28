@@ -34,7 +34,7 @@ public class Game extends World
         userShip.turnTowards(250, 0);
         timer.mark();
 
-        try {
+        try { // Adds all the words from text file to an arraylist
             BufferedReader bufferedReader = new BufferedReader(new FileReader("words.txt"));
             String currentLine;
             do {
@@ -50,7 +50,7 @@ public class Game extends World
         }
     }
 
-    public void act() { // press W key to make stuff fall down
+    public void act() {
         createEnemies();
         checkCleared();
     }
