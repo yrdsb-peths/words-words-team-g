@@ -25,10 +25,14 @@ public class Enemy extends Actor
         moveEnemy();
         if(isTouching(MainShip.class)) // remove if touching ship
         {
-            getWorld().removeObject(label);
+            MainShip ship = (MainShip)getOneIntersectingObject(MainShip.class);
             Game game = (Game) getWorld();
-            game.enemyHolder.remove(this);
-            getWorld().removeObject(this);
+            if(game.hasForcefield == true)
+            {
+                Forcefield forcefield = new Forcefield();
+                getWorld().addObject(forcefield, ship.getX(), ship.getY());
+            }
+            removeEnemy();
         }
     }
 
@@ -41,5 +45,14 @@ public class Enemy extends Actor
         moveTimer.mark(); // move enemy and label
         move(2);
         label.setLocation(getX(), getY());
+    }
+    
+    public void removeEnemy()
+    {
+        getWorld().removeObject(label);
+        Game game = (Game) getWorld();
+        game.enemyHolder.remove(this);
+        game.hasForcefield = false;
+        getWorld().removeObject(this);
     }
 }

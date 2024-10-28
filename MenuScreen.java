@@ -31,7 +31,9 @@ public class MenuScreen extends World
         
         //adding instructions
         instructionLabel = new Label("Please select a character to begin!", 30);
-        
+        Color OFF_WHITE = new Color(251, 247, 245);
+        instructionLabel.setLineColor(OFF_WHITE);
+        instructionLabel.setFillColor(OFF_WHITE);
         // Add the instruction label to the screen
         addObject(instructionLabel, 250, 200);
         

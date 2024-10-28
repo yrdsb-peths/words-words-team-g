@@ -12,7 +12,7 @@ public class CharacterSelection extends World
     private String[] powers = {
         "Reload avatar: the jammed time\ngoes down to 0.5s",
         "Explosion avatar: the explosion now\nknocks down two letters off any\nenemy caught in the explosion",
-        "Forcefield avatar: User has another\nlife, whenthey lose their\nfirst life an energy\nshield/blast will destroy \nevery enemy on the map\n(Only happens once per game)"
+        "Forcefield avatar: User has another\nlife, when they lose their\nfirst life an energy\nshield/blast will destroy \nevery enemy on the map\n(Only happens once per game)"
     };
     
     public CharacterSelection()
@@ -38,6 +38,9 @@ public class CharacterSelection extends World
         characterDisplay.setRotation(-90);
         
         powerLabel = new Label(powers[indexShips], 30);
+        Color offWhite = new Color(251, 247, 245);
+        powerLabel.setLineColor(offWhite);
+        powerLabel.setFillColor(offWhite);
         
         // Add the instruction label to the screen
         addObject(powerLabel, 250, 550);

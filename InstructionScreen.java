@@ -28,6 +28,9 @@ public class InstructionScreen extends World
 
         // Create a label with the first instruction
         instructionLabel = new Label(instructions[index], 30);
+        Color offWhite = new Color(251, 247, 245);
+        instructionLabel.setLineColor(offWhite);
+        instructionLabel.setFillColor(offWhite);
         // Add the instruction label to the screen
         addObject(instructionLabel, 250, 200);
 
