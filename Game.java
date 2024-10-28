@@ -13,7 +13,7 @@ public class Game extends World
     private GreenfootSound gameMusic;
     int wave = 1;
     boolean clearedWave = true;
-    Set<Enemy> enemyHolder = new HashSet<>();
+    HashMap<String, Enemy> enemyHolder = new HashMap<>();
     SimpleTimer timer = new SimpleTimer();
     ArrayList<String> words = new ArrayList<>();
 
@@ -71,11 +71,12 @@ public class Game extends World
             int startX = Greenfoot.getRandomNumber(500);
             Enemy enemy = new Enemy(250, 600);
             addObject(enemy, startX, 0);
-            enemyHolder.add(enemy);
+            enemyHolder.put(enemy.toString(), enemy);
             addObject(enemy.label, startX, 0);
             timer.mark();
 
             int randomWordIndex = Greenfoot.getRandomNumber(words.size() - 1);
+
             enemy.label.setValue(words.get(randomWordIndex));
         }
 
@@ -85,6 +86,10 @@ public class Game extends World
         }
     }
     
+    public boolean inEnemySet() {
+        
+    }
+
     public void started() {
         // Ensure the music resumes when the world starts
         gameMusic.playLoop();
