@@ -12,8 +12,8 @@ public class Enemy extends Actor
         setImage(enemyShip);
         this.toX = toX;
         this.toY = toY;
-        label = new Label("test", 30);
         moveTimer.mark();
+        label = new Label("test", 30);
     }
 
     public void act() // Stuff falls down
