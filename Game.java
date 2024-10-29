@@ -163,7 +163,19 @@ public class Game extends World
             Enemy enemy = enemiesInWave.get(0);
             addObject(enemy, startX, 0);
             addObject(enemy.label, startX, 0);
-            int randomWordIndex = Greenfoot.getRandomNumber(words.size() - 1);
+            int randomWordIndex;
+            boolean wordExists = false;
+            do { // No duplicate words in 
+                randomWordIndex = Greenfoot.getRandomNumber(words.size() - 1);
+                for(String key : enemyHolder.keySet()) {
+                    if(enemyHolder.get(key).originalWord.equals(words.get(randomWordIndex))) {
+                        wordExists = true;
+                    }
+                    else {
+                        wordExists = false;
+                    }
+                }
+            } while(wordExists == true);
             String randomWord = words.get(randomWordIndex);
             enemy.label.setValue(randomWord);
             enemy.originalWord = randomWord;
