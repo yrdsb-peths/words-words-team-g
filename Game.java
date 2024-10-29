@@ -92,13 +92,11 @@ public class Game extends World
     }
     
     public void selectWord(String lastPressed) {
-        if(lastPressed != null) {
-            for(String word : enemyHolder.keySet()) {
-                if(word.substring(0,1).equals(lastPressed)) { // finds first word that starts with the letter the user inputed
-                    currentWord = word;
-                    subtractLetter();
-                    break;
-                }
+        for(String word : enemyHolder.keySet()) {
+            if(word.substring(0,1).equals(lastPressed)) { // finds first word that starts with the letter the user inputed
+                currentWord = word;
+                subtractLetter();
+                break;
             }
         }
     }
