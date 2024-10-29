@@ -68,6 +68,10 @@ public class Game extends World
     public void act() {
         createEnemies();
         checkCleared();
+        userInput();
+    }
+
+    public void userInput() {
         String lastPressed = Greenfoot.getKey();
         if(lastPressed != null) {
             if(currentWord == null) { // If word has not been selected
