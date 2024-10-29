@@ -22,6 +22,9 @@ public class ModeScreen extends World
         addObject(new Button(this::extremeMode, "Extreme"), 250, 410);
         addObject(new Button(this::goMenu, "Menu"), 250, 460);
         Label instructionLabel = new Label("Select a mode", 30);
+        Color offWhite = new Color(251, 247, 245);
+        instructionLabel.setLineColor(offWhite);
+        instructionLabel.setFillColor(offWhite);
         addObject(instructionLabel, 250, 200);
     }
     
