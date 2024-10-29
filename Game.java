@@ -1,27 +1,22 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 import java.io.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.ArrayList;
-/**
- * Write a description of class Game here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
+
 public class Game extends World
 {
     private GreenfootSound gameMusic;
-    int wave = 1;
-    boolean clearedWave = true;
-    boolean hasForcefield = false;
-    Set<Enemy> enemyHolder = new HashSet<>();
+    HashMap<String, Enemy> enemyHolder = new HashMap<>();
+    SimpleTimer timer = new SimpleTimer();
     ArrayList<String> words = new ArrayList<>();
     ArrayList<Enemy> enemiesInWave = new ArrayList<Enemy>();
     SimpleTimer spawnTimer = new SimpleTimer();
     SimpleTimer pauseTimer = new SimpleTimer();
     Label waveLabel;
+    String currentWord;
+    boolean hasForcefield = false;
+    int wave = 1;
+    boolean clearedWave = true;
+    
     public Game(int difficulty,int whichShip)
     {    
         //creating new world
@@ -73,8 +68,57 @@ public class Game extends World
     public void act() {
         createEnemies();
         checkCleared();
+        String lastPressed = Greenfoot.getKey();
+        if(lastPressed != null) {
+            if(currentWord == null) { // If word has not been selected
+                selectWord(lastPressed);
+                return;
+            }
+            else {
+                if(lastPressed.equals("backspace")) { // allows user to select another word
+                    currentWord = null;
+                }
+                else {
+                    if(lastPressed.equals(currentWord.substring(0,1))) { // if input matches letter to be typed, remove it
+                        subtractLetter();
+                    }
+                }
+            }
+        }
     }
     
+    public void selectWord(String lastPressed) {
+        if(lastPressed != null) {
+            for(String word : enemyHolder.keySet()) {
+                if(word.substring(0,1).equals(lastPressed)) { // finds first word that starts with the letter the user inputed
+                    currentWord = word;
+                    subtractLetter();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void subtractLetter() {
+        Enemy enemy = enemyHolder.get(currentWord); // specific enemy
+
+        if(currentWord.length() <= 1) { // remove everything if word is compeleted
+            removeFromMap(enemy);
+            removeObject(enemy.label);
+            removeObject(enemy);
+            currentWord = null;
+        }
+        else {
+            String newWord = currentWord.substring(1); //remove first letter from label
+            enemy.label.setValue(newWord);
+
+            enemyHolder.remove(currentWord);
+            enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
+
+            currentWord = newWord;
+        }
+    }
+
     public void checkCleared()
     {
         if(enemyHolder.isEmpty() && enemiesInWave.size() == 0 && clearedWave == false)
@@ -114,15 +158,30 @@ public class Game extends World
             int startX = Greenfoot.getRandomNumber(500);
             Enemy enemy = enemiesInWave.get(0);
             addObject(enemy, startX, 0);
-            enemyHolder.add(enemy);
             addObject(enemy.label, startX, 0);
             int randomWordIndex = Greenfoot.getRandomNumber(words.size() - 1);
+            String randomWord = words.get(randomWordIndex);
+            enemy.label.setValue(randomWord);
+            enemy.originalWord = randomWord;
+            enemyHolder.put(randomWord, enemy);
             enemy.label.setValue(words.get(randomWordIndex));
             enemiesInWave.remove(0);
             spawnTimer.mark();
         }
     }
-    
+
+    public void removeFromMap(Enemy enemy) {
+        String mapKey = "";
+        for(String key : enemyHolder.keySet()) {
+            if(enemyHolder.get(key).equals(enemy)) { // finds string that corresponds to the specific enemy
+                mapKey = key;
+            }
+        }
+        if(mapKey != "") {
+            enemyHolder.remove(mapKey); // removes the enemy from the map
+        }
+    }
+
     public void started() {
         // Ensure the music resumes when the world starts
         gameMusic.playLoop();

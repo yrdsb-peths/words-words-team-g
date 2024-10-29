@@ -5,6 +5,7 @@ public class Enemy extends Actor
     int toX, toY;
     SimpleTimer moveTimer = new SimpleTimer();
     Label label;
+    String originalWord;
     public Enemy(int toX, int toY) { //Sets image
         GreenfootImage enemyShip = new GreenfootImage("EnemySpaceship.png");
         enemyShip.scale(70, 60);
@@ -38,11 +39,12 @@ public class Enemy extends Actor
     
     public void removeEnemy()
     {
-        getWorld().removeObject(label);
         Game game = (Game) getWorld();
-        game.enemyHolder.remove(this);
+        game.removeObject(label);
+        game.currentWord = null;
+        game.removeFromMap(this);
         game.hasForcefield = false;
-        getWorld().removeObject(this);
+        game.removeObject(this);
     }
     
     public void checkTouching()
