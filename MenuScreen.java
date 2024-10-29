@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MenuScreen extends World
 {    
     //Menu music
-    private GreenfootSound menuMusic;
+    GreenfootSound menuMusic;
     private Label instructionLabel;
     public static int whichShip = 1;
     //menu of buttons
@@ -62,8 +62,7 @@ public class MenuScreen extends World
 
     //going to set difficulty
     public void goDifficulty() {
-        menuMusic.pause();
-        Greenfoot.setWorld(new ModeScreen());
+        Greenfoot.setWorld(new ModeScreen(this));
     }
     
     public void goHighScores() {
@@ -71,7 +70,7 @@ public class MenuScreen extends World
     }
     
     public void goCharacterSelection() {
-        Greenfoot.setWorld(new CharacterSelection());
+        Greenfoot.setWorld(new CharacterSelection(this));
     }
 
     public void goGameOver() {

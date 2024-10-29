@@ -5,9 +5,9 @@ import java.util.HashMap;
 public class HighScore extends World
 {
     private Map<String, Integer> highScores;
-    private World menuScreen;
+    private MenuScreen menuScreen;
 
-    public HighScore(World menuScreen)
+    public HighScore(MenuScreen menuScreen)
     {    
         super(500, 700, 1);
         setBackground(new GreenfootImage("Background.jpg"));

@@ -8,11 +8,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ModeScreen extends World
 {
+    MenuScreen menuScreen;
     /**
      * Constructor for objects of class ModeScreen.
      * 
      */
-    public ModeScreen()
+    public ModeScreen(MenuScreen menuScreen)
     {    
         super(500, 700, 1);
         setBackground(new GreenfootImage("Background.jpg")); 
@@ -26,6 +27,7 @@ public class ModeScreen extends World
         instructionLabel.setLineColor(offWhite);
         instructionLabel.setFillColor(offWhite);
         addObject(instructionLabel, 250, 200);
+        this.menuScreen = menuScreen;
     }
     
     public void easyMode()
@@ -50,12 +52,12 @@ public class ModeScreen extends World
     
     public void goGame(int difficulty)
     {
-        MenuScreen menu = new MenuScreen();
-        Greenfoot.setWorld(new Game(difficulty, menu.whichShip));
+        menuScreen.menuMusic.stop();
+        Greenfoot.setWorld(new Game(difficulty, menuScreen.whichShip));
     }
     
     public void goMenu()
     {
-        Greenfoot.setWorld(new MenuScreen());
+        Greenfoot.setWorld(menuScreen);
     }
 }
