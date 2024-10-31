@@ -52,8 +52,25 @@ public class ModeScreen extends World
     
     public void goGame(int difficulty)
     {
+        int enemySpeed;
+        switch(difficulty) {
+            case 1:  // Easy
+                enemySpeed = 3;
+                break;
+            case 2:  // Medium
+                enemySpeed = 5;
+                break;
+            case 3:  // Hard
+                enemySpeed = 9;
+                break;
+            case 4:  // Extreme
+                enemySpeed = 13;
+                break;
+            default:
+                enemySpeed = 5;
+        }
         menuScreen.menuMusic.stop();
-        Greenfoot.setWorld(new Game(difficulty, menuScreen.whichShip));
+        Greenfoot.setWorld(new Game(difficulty, menuScreen.whichShip, enemySpeed));
     }
     
     public void goMenu()
