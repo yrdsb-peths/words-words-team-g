@@ -17,6 +17,7 @@ public class Game extends World
     int wave = 1;
     int enemySpeed;
     boolean clearedWave = true;
+    boolean doubleLetters = false;
     
     public Game(int difficulty,int whichShip, int enemySpeed)
     {    
@@ -34,14 +35,17 @@ public class Game extends World
         if(whichShip == 1)
         {
             hasForcefield = false;
+            doubleLetters = false;
         }
         else if(whichShip == 2)
         {
             hasForcefield = false;
+            doubleLetters = true;
         }
         else
         {
             hasForcefield = true;
+            doubleLetters = false;
         }
         MainShip userShip = new MainShip(whichShip);
         addObject(userShip, 250, 600);
@@ -72,7 +76,7 @@ public class Game extends World
         checkCleared();
         userInput();
     }
-
+ 
     public void userInput() {
         String lastPressed = Greenfoot.getKey();
         if(lastPressed != null) {
@@ -87,6 +91,9 @@ public class Game extends World
                 else {
                     if(lastPressed.equals(currentWord.substring(0,1))) { // if input matches letter to be typed, remove it
                         subtractLetter();
+                        if(doubleLetters) {
+                            subtractLetter();
+                        }
                     }
                 }
             }
@@ -98,6 +105,9 @@ public class Game extends World
             if(word.substring(0,1).equals(lastPressed)) { // finds first word that starts with the letter the user inputed
                 currentWord = word;
                 subtractLetter();
+                if(doubleLetters) {
+                    subtractLetter();
+                }
                 break;
             }
         }
@@ -105,7 +115,9 @@ public class Game extends World
 
     public void subtractLetter() {
         Enemy enemy = enemyHolder.get(currentWord); // specific enemy
-
+        if(currentWord == null) {
+            return;
+        }
         if(currentWord.length() <= 1) { // remove everything if word is compeleted
             removeFromMap(enemy);
             removeObject(enemy.label);
