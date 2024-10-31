@@ -57,6 +57,10 @@ public class Enemy extends Actor
             {
                 Forcefield forcefield = new Forcefield();
                 getWorld().addObject(forcefield, ship.getX(), ship.getY());
+            } else 
+            {
+                GameOver gameover = new GameOver(game);
+                Greenfoot.setWorld(gameover);
             }
             removeEnemy();
         }
