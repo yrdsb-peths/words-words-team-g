@@ -15,12 +15,14 @@ public class Game extends World
     String currentWord;
     boolean hasForcefield = false;
     int wave = 1;
+    int enemySpeed;
     boolean clearedWave = true;
     
-    public Game(int difficulty,int whichShip)
+    public Game(int difficulty,int whichShip, int enemySpeed)
     {    
         //creating new world
         super(500, 700, 1, false);
+        this.enemySpeed = enemySpeed;
         setBackground(new GreenfootImage("Background.jpg"));
         
         //music
@@ -140,7 +142,7 @@ public class Game extends World
             {
                 for(int i = 0; i < wave; i++)
                 {
-                    enemiesInWave.add(new Enemy(250, 600));
+                    enemiesInWave.add(new Enemy(250, 600,enemySpeed));
                 }
                 clearedWave = false;
             }
