@@ -89,9 +89,6 @@ public class Game extends World
                 else {
                     if(lastPressed.equals(currentWord.substring(0,1))) { // if input matches letter to be typed, remove it
                         subtractLetter();
-                        if(doubleLetters) {
-                            subtractLetter();
-                        }
                     }
                 }
             }
@@ -103,9 +100,6 @@ public class Game extends World
             if(word.substring(0,1).equals(lastPressed)) { // finds first word that starts with the letter the user inputed
                 currentWord = word;
                 subtractLetter();
-                if(doubleLetters) {
-                    subtractLetter();
-                }
                 break;
             }
         }
@@ -113,6 +107,7 @@ public class Game extends World
 
     public void subtractLetter() {
         Enemy enemy = enemyHolder.get(currentWord); // specific enemy
+
         if(currentWord == null) {
             return;
         }
@@ -130,6 +125,33 @@ public class Game extends World
             enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
 
             currentWord = newWord;
+
+            addObject(new Explosion(), enemy.getX(), enemy.getY());
+        }
+    }
+
+    public void subtractLetter(Enemy currentEnemy) {
+        Enemy enemy = currentEnemy; //not done yet
+
+        if(currentWord == null) {
+            return;
+        }
+        if(currentWord.length() <= 1) { // remove everything if word is compeleted
+            removeFromMap(enemy);
+            removeObject(enemy.label);
+            removeObject(enemy);
+            currentWord = null;
+        }
+        else {
+            String newWord = currentWord.substring(1); //remove first letter from label
+            enemy.label.setValue(newWord);
+
+            enemyHolder.remove(currentWord);
+            enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
+
+            currentWord = newWord;
+
+            addObject(new Explosion(), enemy.getX(), enemy.getY());
         }
     }
 
