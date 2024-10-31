@@ -6,6 +6,7 @@ public class Game extends World
 {
     private GreenfootSound gameMusic;
     HashMap<String, Enemy> enemyHolder = new HashMap<>();
+    HashMap<String, Enemy> sameLetterEnemy = new HashMap<>();
     SimpleTimer timer = new SimpleTimer();
     ArrayList<String> words = new ArrayList<>();
     ArrayList<Enemy> enemiesInWave = new ArrayList<Enemy>();
@@ -18,6 +19,9 @@ public class Game extends World
     int enemySpeed;
     boolean clearedWave = true;
     boolean doubleLetters = false;
+    int jamTime = 1000;
+    SimpleTimer jamTimer = new SimpleTimer();
+    MainShip userShip;
     
     public Game(int difficulty,int whichShip, int enemySpeed)
     {    
@@ -36,6 +40,7 @@ public class Game extends World
         {
             hasForcefield = false;
             doubleLetters = false;
+            jamTime = 500;
         }
         else if(whichShip == 2)
         {
@@ -47,7 +52,7 @@ public class Game extends World
             hasForcefield = true;
             doubleLetters = false;
         }
-        MainShip userShip = new MainShip(whichShip);
+        userShip = new MainShip(whichShip);
         addObject(userShip, 250, 600);
         userShip.turnTowards(250, 0);
         try { // Adds all the words from text file to an arraylist
@@ -66,6 +71,7 @@ public class Game extends World
         }
         spawnTimer.mark();
         pauseTimer.mark();
+        jamTimer.mark();
         waveLabel = new Label("Wave " + wave, 60);
         Color OFF_WHITE = new Color(251, 247, 245);
         waveLabel.setFillColor(OFF_WHITE);
@@ -79,6 +85,15 @@ public class Game extends World
  
     public void userInput() {
         String lastPressed = Greenfoot.getKey();
+        if(jamTimer.millisElapsed() < jamTime)
+        {
+            lastPressed = null;
+            userShip.showJammed();
+        }
+        else
+        {
+            userShip.removeJammed();
+        }
         if(lastPressed != null) {
             if(currentWord == null) { // If word has not been selected
                 selectWord(lastPressed);
@@ -86,14 +101,21 @@ public class Game extends World
             }
             else {
                 if(lastPressed.equals("backspace")) { // allows user to select another word
+                    Enemy enemy = enemyHolder.get(currentWord); // specific enemy
+                    enemy.label.setFillColor(Color.WHITE);
                     currentWord = null;
+                    userShip.target = null;
                 }
-                else {
+                else{
                     if(lastPressed.equals(currentWord.substring(0,1))) { // if input matches letter to be typed, remove it
                         subtractLetter();
                         if(doubleLetters) {
                             subtractLetter();
                         }
+                    }
+                    else
+                    {
+                        jamTimer.mark();
                     }
                 }
             }
@@ -101,15 +123,28 @@ public class Game extends World
     }
     
     public void selectWord(String lastPressed) {
+        double lowestDistance = Integer.MAX_VALUE;
         for(String word : enemyHolder.keySet()) {
-            if(word.substring(0,1).equals(lastPressed)) { // finds first word that starts with the letter the user inputed
+            // finds the word that starts with the letter the user inputed and is the shortest distance from the main ship
+            if(word.substring(0,1).equals(lastPressed) && enemyHolder.get(word).distanceFrom() < lowestDistance) {
+                lowestDistance = enemyHolder.get(word).distanceFrom();
                 currentWord = word;
-                subtractLetter();
-                if(doubleLetters) {
-                    subtractLetter();
-                }
-                break;
             }
+        }
+        if(currentWord == null)
+        {
+            jamTimer.mark();
+        }
+        else
+        {
+            Enemy enemy = enemyHolder.get(currentWord); // specific enemy
+            
+            enemy.label.setFillColor(Color.ORANGE);
+            subtractLetter();
+            if(doubleLetters) {
+                subtractLetter();
+            }
+            userShip.target = enemy;
         }
     }
 
@@ -121,6 +156,7 @@ public class Game extends World
         if(currentWord.length() <= 1) { // remove everything if word is compeleted
             removeFromMap(enemy);
             removeObject(enemy.label);
+            userShip.target = null;
             removeObject(enemy);
             currentWord = null;
         }
