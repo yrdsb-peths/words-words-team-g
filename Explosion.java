@@ -6,7 +6,7 @@ public class Explosion extends Actor {
   private int currentframe = 0;
   Enemy initialEnemy;
   SimpleTimer animationTimer = new SimpleTimer();
-  
+  Enemy[] surroundingEnemies;
 
   public Explosion(Enemy enemy) {
     loadimage();
@@ -21,15 +21,38 @@ public class Explosion extends Actor {
 
   public void checkTouching() {
     if(isTouching(Enemy.class)) {
-      Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
-      if(!enemy.equals(initialEnemy)) {
-        Game game = (Game) getWorld();
-        game.subtractLetter(enemy);
-        if(enemy != null) {
-          game.subtractLetter(enemy);
+      int numTouching = getIntersectingObjects(Enemy.class).size() - 1; // not including self
+      if(numTouching == 0) {
+        return;
+      }
+      surroundingEnemies = new Enemy[numTouching];
+      for(int i = 0; i < numTouching * 3; i++) {
+        subtracting();
+      }
+      surroundingEnemies = null;
+    }
+  }
+
+  public void subtracting() {
+    Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
+    int elements = 0;
+    for(int i = 0; i < surroundingEnemies.length; i++) {
+      if(surroundingEnemies[i] != null) {
+        elements += 1;
+        if(surroundingEnemies[i].equals(enemy)) {
+          return;
         }
       }
     }
+
+    if(!enemy.equals(initialEnemy)) {
+      Game game = (Game) getWorld();
+      game.subtractLetter(enemy);
+      if(enemy != null) { // subtracts two letters
+        game.subtractLetter(enemy);
+      }
+    }
+    surroundingEnemies[elements] = enemy;
   }
 
   public void loadimage() {
@@ -47,9 +70,8 @@ public class Explosion extends Actor {
     animationTimer.mark();
     if (currentframe < explosionImage.length) {
       setImage(explosionImage[currentframe]);
-      if(currentframe == 0) { // prints twice
+      if(currentframe == 4) { // prints twice
         checkTouching();
-        System.out.println(1);
       }
       currentframe++;
     }

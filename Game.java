@@ -99,8 +99,6 @@ public class Game extends World
     public void selectWord(String lastPressed) {
         for(String word : enemyHolder.keySet()) {
             if(word.substring(0,1).equals(lastPressed)) { // finds first word that starts with the letter the user inputed
-                Enemy enemy = enemyHolder.get(word);
-                makeExplosion(enemy);
                 currentWord = word;
                 subtractLetter();
                 break;
@@ -113,6 +111,8 @@ public class Game extends World
 
         if(currentWord != null) {
             if(currentWord.length() <= 1) { // remove everything if word is compeleted
+                makeExplosion(enemy);
+
                 removeFromMap(enemy);
                 removeObject(enemy.label);
                 removeObject(enemy);
@@ -181,6 +181,8 @@ public class Game extends World
             removeObject(waveLabel);
             if(clearedWave == true)
             {
+                wave = 15; // delete this
+
                 for(int i = 0; i < wave; i++)
                 {
                     enemiesInWave.add(new Enemy(250, 600));
