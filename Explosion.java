@@ -6,7 +6,6 @@ public class Explosion extends Actor {
   private int currentframe = 0;
   Enemy initialEnemy;
   SimpleTimer animationTimer = new SimpleTimer();
-  Enemy[] surroundingEnemies;
 
   public Explosion(Enemy enemy) {
     loadimage();
@@ -20,31 +19,16 @@ public class Explosion extends Actor {
   }
 
   public void checkTouching() {
-    if(isTouching(Enemy.class)) {
-      int numTouching = getIntersectingObjects(Enemy.class).size() - 1; // not including self
-      if(numTouching == 0) {
-        return;
-      }
-      surroundingEnemies = new Enemy[numTouching];
-      for(int i = 0; i < numTouching * 3; i++) {
-        subtracting();
-      }
-      surroundingEnemies = null;
-    }
-  }
-
-  public void subtracting() {
-    Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
-    int elements = 0;
-    for(int i = 0; i < surroundingEnemies.length; i++) {
-      if(surroundingEnemies[i] != null) {
-        elements += 1;
-        if(surroundingEnemies[i].equals(enemy)) {
-          return;
+    if(getIntersectingObjects(Enemy.class).size() > 1) {
+      for(Enemy enemy : getIntersectingObjects(Enemy.class)) {
+        if(!enemy.equals(initialEnemy)) {
+          subtracting(enemy);
         }
       }
     }
+  }
 
+  public void subtracting(Enemy enemy) {
     if(!enemy.equals(initialEnemy)) {
       Game game = (Game) getWorld();
       game.subtractLetter(enemy);
@@ -52,13 +36,13 @@ public class Explosion extends Actor {
         game.subtractLetter(enemy);
       }
     }
-    surroundingEnemies[elements] = enemy;
   }
 
   public void loadimage() {
     explosionImage = new GreenfootImage[totalframe];
     for (int i = 0; i < explosionImage.length; i++) {
       explosionImage[i] = new GreenfootImage("images/ExplosionAnimation/tile00" + i + ".png");
+      explosionImage[i].scale(150, 150);
     }
   }
 
@@ -70,7 +54,7 @@ public class Explosion extends Actor {
     animationTimer.mark();
     if (currentframe < explosionImage.length) {
       setImage(explosionImage[currentframe]);
-      if(currentframe == 4) { // prints twice
+      if(currentframe == 0) {
         checkTouching();
       }
       currentframe++;
