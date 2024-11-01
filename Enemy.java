@@ -47,19 +47,16 @@ public class Enemy extends Actor
         game.removeObject(this);
     }
     
-    public void checkTouching()
-    {
-        if(isTouching(MainShip.class)) // remove if touching ship
-        {
-            MainShip ship = (MainShip)getOneIntersectingObject(MainShip.class);
+    public void checkTouching() {
+        if (isTouching(MainShip.class)) { // remove if touching ship
+            MainShip ship = (MainShip) getOneIntersectingObject(MainShip.class);
             Game game = (Game) getWorld();
-            if(game.hasForcefield == true)
-            {
+            if (game.hasForcefield) {
                 Forcefield forcefield = new Forcefield();
                 getWorld().addObject(forcefield, ship.getX(), ship.getY());
-            } else 
-            {
-                GameOver gameover = new GameOver();
+            } else {
+                // Pass the score to GameOver constructor
+                GameOver gameover = new GameOver(game.getScore());
                 Greenfoot.setWorld(gameover);
             }
             removeEnemy();

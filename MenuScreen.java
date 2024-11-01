@@ -22,8 +22,7 @@ public class MenuScreen extends World
         addObject(new Button(this::goHighScores, "High Scores"), 250, 310); 
         addObject(new Button(this::goDifficulty, "Start Game"), 250, 260);
         addObject(new Button(this::goCharacterSelection, "Character selection"), 250, 410);
-        addObject(new Button(this::goGameOver, "GameOver"), 250, 460);
-
+        
         //changing volume and allowing a loop play
         menuMusic.setVolume(50);
         menuMusic.playLoop();
@@ -90,10 +89,6 @@ public class MenuScreen extends World
     
     public void goCharacterSelection() {
         Greenfoot.setWorld(new CharacterSelection(this));
-    }
-
-    public void goGameOver() {
-        Greenfoot.setWorld(new GameOver());
     }
     
     public void started() {
