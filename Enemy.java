@@ -59,7 +59,7 @@ public class Enemy extends Actor
                 getWorld().addObject(forcefield, ship.getX(), ship.getY());
             } else 
             {
-                GameOver gameover = new GameOver(game);
+                GameOver gameover = new GameOver();
                 Greenfoot.setWorld(gameover);
             }
             removeEnemy();

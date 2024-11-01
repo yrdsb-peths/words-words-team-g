@@ -93,7 +93,7 @@ public class MenuScreen extends World
     }
 
     public void goGameOver() {
-        Greenfoot.setWorld(new GameOver(this));
+        Greenfoot.setWorld(new GameOver());
     }
     
     public void started() {
