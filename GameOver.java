@@ -2,7 +2,7 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 
 public class GameOver extends World {
-  public static ArrayList<String> UserNames = new ArrayList<>();
+  public static ArrayList<NameScore> UserNames = new ArrayList<>();
   private World menuScreen;
   private String ending = "GameOver";
   private String userName = "";
@@ -19,7 +19,7 @@ public class GameOver extends World {
 
     DisplayGameOver();
 
-    addObject(new Button(this::goMenuScreen, "Menu"), 250, 300);
+    addObject(new Button(this::goMenuScreen, "Menu"), 250, 600);
   }
 
   public void act() {
@@ -43,16 +43,16 @@ public class GameOver extends World {
     String key = Greenfoot.getKey();
     if (key != null) {
       if (key.equals("enter")) {
-        UserNames.add(userName);
         Random ran = new Random();
         int testValue = ran.nextInt(10);
         NameScore playerinfo = new NameScore(userName, testValue);
+        UserNames.add(playerinfo);
 
-        Label nameLabel = new Label("Player: " + userName, 30);
-        Label nameLabel2 = new Label("Playerinfo: " + playerinfo.getName() + playerinfo.getScores(), 30);
+        Label nameLabel = new Label("Player: " + userName, 40);
+        Label nameLabel2 = new Label("Score: " + playerinfo.getScores(), 40);
 
         addObject(nameLabel, 250, 250);
-        addObject(nameLabel2, 250, 400);
+        addObject(nameLabel2, 250, 300);
 
         inputAccepted = false;
       } else if (key.equals("backspace")) {
