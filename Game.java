@@ -48,20 +48,7 @@ public class Game extends World
         MainShip userShip = new MainShip(whichShip);
         addObject(userShip, 250, 600);
         userShip.turnTowards(250, 0);
-        try { // Adds all the words from text file to an arraylist
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("words.txt"));
-            String currentLine;
-            do {
-                currentLine = bufferedReader.readLine();
-                words.add(currentLine);
-                currentLine = bufferedReader.readLine();
-            } while(currentLine != null);
-            bufferedReader.close();
-        } 
-        catch (IOException e) {
-            System.out.println("Error reading textfile");
-            System.out.println("Error: " + e.toString());
-        }
+        loadWords();
         spawnTimer.mark();
         pauseTimer.mark();
         waveLabel = new Label("Wave " + wave, 60);
@@ -75,6 +62,20 @@ public class Game extends World
         userInput();
     }
  
+    public void loadWords() {
+        try { // Adds all the words from text file to an arraylist
+            Scanner scanner = new Scanner(new File("words.txt"));
+            while(scanner.hasNextLine()) {
+                String word = scanner.nextLine();
+                words.add(word);
+            }
+            scanner.close();
+        } 
+        catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
     public void userInput() {
         String lastPressed = Greenfoot.getKey();
         if(lastPressed != null) {
