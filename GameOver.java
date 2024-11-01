@@ -8,6 +8,9 @@ public class GameOver extends World {
   private String userName = "";
   private Label input;
 
+
+  private boolean inputAccepted = true;
+
   public GameOver(World menuScreen) {
     super(500, 700, 1);
     setBackground(new GreenfootImage("Background.jpg"));
@@ -35,6 +38,8 @@ public class GameOver extends World {
   }
 
   public void requestName() {
+    if (!inputAccepted) return;
+
     String key = Greenfoot.getKey();
     if (key != null) {
       if (key.equals("enter")) {
@@ -48,6 +53,8 @@ public class GameOver extends World {
 
         addObject(nameLabel, 250, 250);
         addObject(nameLabel2, 250, 400);
+
+        inputAccepted = false;
       } else if (key.equals("backspace")) {
         if (userName.length() > 0) {
           userName = userName.substring(0, userName.length() - 1);
