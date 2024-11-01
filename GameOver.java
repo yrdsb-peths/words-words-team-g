@@ -11,7 +11,6 @@ public class GameOver extends World {
 
     public GameOver() {
         super(500, 700, 1);
-        // Initialize menuScreen to prevent NullPointerException
         menuScreen = new MenuScreen();
         setBackground(new GreenfootImage("Background.jpg"));
         DisplayGameOver();
