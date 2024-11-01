@@ -5,6 +5,8 @@ import java.io.*;
 public class Game extends World
 {
     private GreenfootSound gameMusic;
+    private GreenfootSound destroyShip;
+    
     HashMap<String, Enemy> enemyHolder = new HashMap<>();
     HashMap<String, Enemy> sameLetterEnemy = new HashMap<>();
     SimpleTimer timer = new SimpleTimer();
@@ -14,6 +16,7 @@ public class Game extends World
     SimpleTimer pauseTimer = new SimpleTimer();
     Label waveLabel;
     String currentWord;
+    
     boolean hasForcefield = false;
     int wave = 1;
     int enemySpeed;
@@ -109,6 +112,8 @@ public class Game extends World
                 else{
                     if(lastPressed.equals(currentWord.substring(0,1))) { // if input matches letter to be typed, remove it
                         subtractLetter();
+                        //sound
+                        
                         if(doubleLetters) {
                             subtractLetter();
                         }
@@ -155,6 +160,9 @@ public class Game extends World
         }
         if(currentWord.length() <= 1) { // remove everything if word is compeleted
             removeFromMap(enemy);
+            destroyShip = new GreenfootSound("destroyShip.mp3");
+            destroyShip.setVolume(75);
+            destroyShip.play();
             removeObject(enemy.label);
             userShip.target = null;
             removeObject(enemy);
