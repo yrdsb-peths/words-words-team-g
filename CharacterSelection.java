@@ -83,6 +83,7 @@ public class CharacterSelection extends World
     //back to the menu screen
     public void goMenuScreen() {
         menuScreen.whichShip = indexShips + 1;
+        menuScreen.updateImage();
         Greenfoot.setWorld(menuScreen);
     }
 }

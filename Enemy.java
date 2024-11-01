@@ -61,4 +61,11 @@ public class Enemy extends Actor
             removeEnemy();
         }
     }
+    
+    public double distanceFrom()
+    {
+        double distanceX = toX - this.getX();
+        double distanceY = toY - this.getY();
+        return Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
+    }
 }

@@ -6,10 +6,10 @@ public class MenuScreen extends World
     GreenfootSound menuMusic;
     private Label instructionLabel;
     public static int whichShip = 1;
+    CharacterDisplay characterDisplay;
     //menu of buttons
     public MenuScreen()
     {    
-        
         //size of world
         super(500, 700, 1);
         setBackground(new GreenfootImage("Background.jpg"));
@@ -50,9 +50,28 @@ public class MenuScreen extends World
         {
             spaceShipImage.scale(70, 55);
         }
-        CharacterDisplay display = new CharacterDisplay(spaceShipImage);
-        addObject(display, getWidth()-50, getHeight()-50);
-        display.turnTowards(display.getX(), 0);
+        characterDisplay = new CharacterDisplay(spaceShipImage);
+        addObject(characterDisplay, getWidth()-50, getHeight()-50);
+        characterDisplay.turnTowards(characterDisplay.getX(), 0);
+    }
+    
+    //Updates the character image
+    public void updateImage()
+    {
+        GreenfootImage spaceShipImage = new GreenfootImage("Spaceship" + whichShip + ".png");
+        if(whichShip == 1)
+        {
+            spaceShipImage.scale(40, 80);
+        }
+        else if(whichShip == 2)
+        {
+            spaceShipImage.scale(40, 50);
+        }
+        else
+        {
+            spaceShipImage.scale(70, 55);
+        }
+        characterDisplay.setImage(spaceShipImage);
     }
     
     //going to intruction screen
