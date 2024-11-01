@@ -1,6 +1,8 @@
 import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.*;
 
 public class GameOver extends World {
+  public static ArrayList<String> UserNames = new ArrayList<>();
   private World menuScreen;
   private String ending = "GameOver";
   private String userName = "";
@@ -36,9 +38,16 @@ public class GameOver extends World {
     String key = Greenfoot.getKey();
     if (key != null) {
       if (key.equals("enter")) {
-        // Display the final username
+        UserNames.add(userName);
+        Random ran = new Random();
+        int testValue = ran.nextInt(10);
+        NameScore playerinfo = new NameScore(userName, testValue);
+
         Label nameLabel = new Label("Player: " + userName, 30);
-        addObject(nameLabel, 250, 250); // Position to avoid overlap with other labels
+        Label nameLabel2 = new Label("Playerinfo: " + playerinfo.getName() + playerinfo.getScores(), 30);
+
+        addObject(nameLabel, 250, 250);
+        addObject(nameLabel2, 250, 400);
       } else if (key.equals("backspace")) {
         if (userName.length() > 0) {
           userName = userName.substring(0, userName.length() - 1);
@@ -52,10 +61,6 @@ public class GameOver extends World {
       }
       input.setValue(userName);
     }
-  }
-
-  public String getUserName() {
-    return userName;
   }
 
   public void goMenuScreen() {
