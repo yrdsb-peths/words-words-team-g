@@ -173,6 +173,7 @@ public class Game extends World
         else {
             String newWord = currentWord.substring(1); //remove first letter from label
             enemy.label.setValue(newWord);
+        }
         if(currentWord != null) {
             if(currentWord.length() <= 1) { // remove everything if word is compeleted
                 makeExplosion(enemy);
