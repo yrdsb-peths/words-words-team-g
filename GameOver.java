@@ -8,13 +8,19 @@ public class GameOver extends World {
     private String userName = "";
     private Label input;
     private boolean inputAccepted = true;
+    private int finalScore;
 
-    public GameOver() {
+    public GameOver(int finalScore) {
         super(500, 700, 1);
+        this.finalScore = finalScore;
         menuScreen = new MenuScreen();
         setBackground(new GreenfootImage("Background.jpg"));
         DisplayGameOver();
+
         addObject(new Button(this::goMenuScreen, "Menu"), 250, 600);
+        
+        Label scoreDisplay = new Label("Final Score: " + finalScore, 40); // Display final score
+        addObject(scoreDisplay, 250, 290);
     }
 
     public void act() {
@@ -37,18 +43,14 @@ public class GameOver extends World {
 
         String key = Greenfoot.getKey();
         if (key != null) {
-            if (key.equals("enter") && !userName.trim().isEmpty()) {  // Check for empty name
-                Random ran = new Random();
-                int testValue = ran.nextInt(10);
-                NameScore playerinfo = new NameScore(userName, testValue);
-                UserNames.add(playerinfo);
+            if (key.equals("enter") && !userName.trim().isEmpty()) {
+                NameScore playerInfo = new NameScore(userName, finalScore); // Use final score
+                UserNames.add(playerInfo);
 
+                // Displaying player and score labels in the GameOver screen
                 Label nameLabel = new Label("Player: " + userName, 40);
-                Label nameLabel2 = new Label("Score: " + playerinfo.getScores(), 40);
 
                 addObject(nameLabel, 250, 250);
-                addObject(nameLabel2, 250, 300);
-
                 inputAccepted = false;
             } else if (key.equals("backspace")) {
                 if (userName.length() > 0) {

@@ -6,6 +6,8 @@ public class Game extends World
 {
     private GreenfootSound gameMusic;
     private GreenfootSound destroyShip;
+    private int score = 0; 
+    private Label scoreLabel; 
     
     HashMap<String, Enemy> enemyHolder = new HashMap<>();
     HashMap<String, Enemy> sameLetterEnemy = new HashMap<>();
@@ -65,6 +67,8 @@ public class Game extends World
         waveLabel = new Label("Wave " + wave, 60);
         Color OFF_WHITE = new Color(251, 247, 245);
         waveLabel.setFillColor(OFF_WHITE);
+        scoreLabel = new Label("Score: " + score, 40); // Initialize score label
+        addObject(scoreLabel, getWidth() - 80, 20); // Position top right
     }
 
     public void act() {
@@ -154,6 +158,21 @@ public class Game extends World
         if(currentWord == null) {
             return;
         }
+        if(currentWord.length() <= 1) { // remove everything if word is compeleted
+            removeFromMap(enemy);
+            destroyShip = new GreenfootSound("destroyShip.mp3");
+            destroyShip.setVolume(75);
+            destroyShip.play();
+            removeObject(enemy.label);
+            userShip.target = null;
+            removeObject(enemy);
+            currentWord = null;
+            score++; // Increment score when an enemy is destroyed
+            scoreLabel.setValue("Score: " + score); // Update score label
+        }
+        else {
+            String newWord = currentWord.substring(1); //remove first letter from label
+            enemy.label.setValue(newWord);
         if(currentWord != null) {
             if(currentWord.length() <= 1) { // remove everything if word is compeleted
                 makeExplosion(enemy);
@@ -289,6 +308,10 @@ public class Game extends World
         if(mapKey != "") {
             enemyHolder.remove(mapKey); // removes the enemy from the map
         }
+    }
+    
+    public int getScore() {
+        return score; // Provide score for GameOver screen
     }
 
     public void started() {
