@@ -1,4 +1,5 @@
 import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.*;
 
 public class Explosion extends Actor {
   private GreenfootImage[] explosionImage;
@@ -11,7 +12,7 @@ public class Explosion extends Actor {
     loadimage();
     setImage(explosionImage[0]);
     animationTimer.mark();
-    initialEnemy = enemy;
+    initialEnemy = enemy; // Enemy explosion is from
   }
 
   public void act() {
@@ -19,8 +20,10 @@ public class Explosion extends Actor {
   }
 
   public void checkTouching() {
-    if(getIntersectingObjects(Enemy.class).size() > 1) {
-      for(Enemy enemy : getIntersectingObjects(Enemy.class)) {
+    if(getIntersectingObjects(Enemy.class).size() > 1) { 
+    List<Enemy> a = getIntersectingObjects(Enemy.class);
+
+      for(Enemy enemy : a) { // Get all enemies touching
         if(!enemy.equals(initialEnemy)) {
           subtracting(enemy);
         }

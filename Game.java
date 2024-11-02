@@ -181,8 +181,6 @@ public class Game extends World
             removeObject(waveLabel);
             if(clearedWave == true)
             {
-                wave = 15; // delete this
-
                 for(int i = 0; i < wave; i++)
                 {
                     enemiesInWave.add(new Enemy(250, 600));
