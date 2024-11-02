@@ -20,15 +20,14 @@ public class Button extends Actor {
         int textY = (buttonImage.getHeight() - textOverlay.getHeight()) / 2;
         buttonImage.drawImage(textOverlay, textX, textY);
         
-        //setting sound
-        buttonClickSound = new GreenfootSound("ButtonClick.mp3");
-        
         setImage(buttonImage); // Set the final button image
     }
 
     //action
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
+            //setting sound
+            buttonClickSound = new GreenfootSound("ButtonClick.mp3");
             //play button sound when button is pressed
             buttonClickSound.setVolume(100);
             buttonClickSound.play();

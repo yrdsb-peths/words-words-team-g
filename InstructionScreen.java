@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class InstructionScreen extends World
 {
-    private World menuScreen;
+    private MenuScreen menuScreen;
     
     //instruction list
     private String[] instructions = {
@@ -19,7 +19,7 @@ public class InstructionScreen extends World
     private int index = 0;
     int button_Xint = 260;
 
-    public InstructionScreen(World menuScreen)
+    public InstructionScreen(MenuScreen menuScreen)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(500, 700, 1);
@@ -59,6 +59,6 @@ public class InstructionScreen extends World
 
     //going back to the menu screen
     public void goMenuScreen() {
-        Greenfoot.setWorld(new MenuScreen());
+        Greenfoot.setWorld(menuScreen);
     }
 }
