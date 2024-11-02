@@ -1,34 +1,31 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 public class HighScore extends World
 {
-    private Map<String, Integer> highScores;
-    private World menuScreen;
+    private MenuScreen menuScreen;
 
-    public HighScore(World menuScreen)
+    public HighScore(MenuScreen menuScreen)
     {    
         super(500, 700, 1);
         setBackground(new GreenfootImage("Background.jpg"));
         
         this.menuScreen = menuScreen;
-
-        highScores = new HashMap<>();
         
-        addObject(new Button(this::goMenuScreen, "Menu"), 250,  + 300);
+        addObject(new Button(this::goMenuScreen, "Menu"), 250,  + 600);
+
+        displayHighScores();
     }
 
     public void displayHighScores() {
         int yint = 150;
-        Label title = new Label("High Score:", 40);
-        addObject(title, 300, 100);
+        Label title = new Label("High Score:", 50);
+        addObject(title, 250, 90);
     
-        for (Map.Entry<String, Integer> entry : highScores.entrySet()) {
-          String key = entry.getKey();
-          int value = entry.getValue();
+        for (NameScore playerinfo : GameOver.UserNames) {
+          
     
-          Label scoreLabel = new Label(key + ": " + value, 40);
+          Label scoreLabel = new Label(playerinfo.getName() + ": " + playerinfo.getScores(), 40);
           addObject(scoreLabel, getWidth() / 2, yint);
     
           yint += 50;

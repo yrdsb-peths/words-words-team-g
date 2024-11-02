@@ -3,13 +3,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MenuScreen extends World
 {    
     //Menu music
-    private GreenfootSound menuMusic;
+    GreenfootSound menuMusic;
     private Label instructionLabel;
-    
+    public static int whichShip = 1;
+    CharacterDisplay characterDisplay;
     //menu of buttons
     public MenuScreen()
     {    
-        
         //size of world
         super(500, 700, 1);
         setBackground(new GreenfootImage("Background.jpg"));
@@ -22,8 +22,7 @@ public class MenuScreen extends World
         addObject(new Button(this::goHighScores, "High Scores"), 250, 310); 
         addObject(new Button(this::goDifficulty, "Start Game"), 250, 260);
         addObject(new Button(this::goCharacterSelection, "Character selection"), 250, 410);
-        addObject(new Button(this::goGameOver, "GameOver"), 250, 460);
-
+        
         //changing volume and allowing a loop play
         menuMusic.setVolume(50);
         menuMusic.playLoop();
@@ -31,10 +30,47 @@ public class MenuScreen extends World
         
         //adding instructions
         instructionLabel = new Label("Please select a character to begin!", 30);
-        
+        Color OFF_WHITE = new Color(251, 247, 245);
+        instructionLabel.setLineColor(OFF_WHITE);
+        instructionLabel.setFillColor(OFF_WHITE);
         // Add the instruction label to the screen
         addObject(instructionLabel, 250, 200);
-
+        
+        GreenfootImage spaceShipImage = new GreenfootImage("Spaceship" + whichShip + ".png");
+        if(whichShip == 1)
+        {
+            spaceShipImage.scale(40, 80);
+        }
+        else if(whichShip == 2)
+        {
+            spaceShipImage.scale(40, 50);
+        }
+        else
+        {
+            spaceShipImage.scale(70, 55);
+        }
+        characterDisplay = new CharacterDisplay(spaceShipImage);
+        addObject(characterDisplay, getWidth()-50, getHeight()-50);
+        characterDisplay.turnTowards(characterDisplay.getX(), 0);
+    }
+    
+    //Updates the character image
+    public void updateImage()
+    {
+        GreenfootImage spaceShipImage = new GreenfootImage("Spaceship" + whichShip + ".png");
+        if(whichShip == 1)
+        {
+            spaceShipImage.scale(40, 80);
+        }
+        else if(whichShip == 2)
+        {
+            spaceShipImage.scale(40, 50);
+        }
+        else
+        {
+            spaceShipImage.scale(70, 55);
+        }
+        characterDisplay.setImage(spaceShipImage);
     }
     
     //going to intruction screen
@@ -44,8 +80,7 @@ public class MenuScreen extends World
 
     //going to set difficulty
     public void goDifficulty() {
-        menuMusic.pause();
-        Greenfoot.setWorld(new ModeScreen());
+        Greenfoot.setWorld(new ModeScreen(this));
     }
     
     public void goHighScores() {
@@ -53,11 +88,7 @@ public class MenuScreen extends World
     }
     
     public void goCharacterSelection() {
-        Greenfoot.setWorld(new CharacterSelection());
-    }
-
-    public void goGameOver() {
-        Greenfoot.setWorld(new GameOver(this));
+        Greenfoot.setWorld(new CharacterSelection(this));
     }
     
     public void started() {

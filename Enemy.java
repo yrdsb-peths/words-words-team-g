@@ -3,37 +3,70 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Enemy extends Actor
 {   
     int toX, toY;
+    int speed;
     SimpleTimer moveTimer = new SimpleTimer();
-    
-    public Enemy(int toX, int toY,int startX) { //Sets image
+    Label label;
+    String originalWord;
+    public Enemy(int toX, int toY, int speed) { //Sets image
         GreenfootImage enemyShip = new GreenfootImage("EnemySpaceship.png");
-        enemyShip.scale(60, 50);
+        enemyShip.scale(70, 60);
         setImage(enemyShip);
         this.toX = toX;
         this.toY = toY;
+        this.speed = speed;
         moveTimer.mark();
+        label = new Label("test", 30);
     }
 
-    public void act() // Stuff falls down
+    public void act()
     {
-        if(getY()<toY)
-        {
+        if (getY() < toY) {
             turnTowards(toX, toY);
         }
         moveEnemy();
-        if(getY() > 700)
-        {
-            getWorld().removeObject(this);
-        }
+        checkTouching();
     }
-    
+
     public void moveEnemy()
     {
-        if(moveTimer.millisElapsed() < 40)
-        {
+        if (moveTimer.millisElapsed() < 40) {
             return;
         }
         moveTimer.mark();
-        move(2);
+        move(speed); // Move enemy by the speed value
+        label.setLocation(getX(), getY());
+    }
+    
+    public void removeEnemy()
+    {
+        Game game = (Game) getWorld();
+        game.removeObject(label);
+        game.currentWord = null;
+        game.removeFromMap(this);
+        game.hasForcefield = false;
+        game.removeObject(this);
+    }
+    
+    public void checkTouching() {
+        if (isTouching(MainShip.class)) { // remove if touching ship
+            MainShip ship = (MainShip) getOneIntersectingObject(MainShip.class);
+            Game game = (Game) getWorld();
+            if (game.hasForcefield) {
+                Forcefield forcefield = new Forcefield();
+                getWorld().addObject(forcefield, ship.getX(), ship.getY());
+            } else {
+                // Pass the score to GameOver constructor
+                GameOver gameover = new GameOver(game.getScore());
+                Greenfoot.setWorld(gameover);
+            }
+            removeEnemy();
+        }
+    }
+    
+    public double distanceFrom()
+    {
+        double distanceX = toX - this.getX();
+        double distanceY = toY - this.getY();
+        return Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
     }
 }

@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class CharacterSelection extends World
 {
-    private World menuScreen;
+    private MenuScreen menuScreen;
     private int indexShips = 0;
     private GreenfootImage[] characters;
     private CharacterDisplay characterDisplay; 
@@ -12,24 +12,26 @@ public class CharacterSelection extends World
     private String[] powers = {
         "Reload avatar: the jammed time\ngoes down to 0.5s",
         "Explosion avatar: the explosion now\nknocks down two letters off any\nenemy caught in the explosion",
-        "Forcefield avatar: User has another\nlife, whenthey lose their\nfirst life an energy\nshield/blast will destroy \nevery enemy on the map\n(Only happens once per game)"
+        "Forcefield avatar: User has another\nlife, when they lose their\nfirst life an energy\nshield/blast will destroy \nevery enemy on the map\n(Only happens once per game)"
     };
     
-    public CharacterSelection()
+    public CharacterSelection(MenuScreen menuScreen)
     {    
         //new world with given sizes and background
         super(500, 700, 1);
         setBackground(new GreenfootImage("Background.jpg"));
         
+        this.menuScreen = menuScreen;
+        
         //ship sizing 
         GreenfootImage spaceShip1 = new GreenfootImage("Spaceship1.png");
-        spaceShip1.scale(120, 360);
+        spaceShip1.scale(120, 240);
         
         GreenfootImage spaceShip2 = new GreenfootImage("Spaceship2.png");
-        spaceShip2.scale(300, 400);
+        spaceShip2.scale(140, 175);
         
         GreenfootImage spaceShip3 = new GreenfootImage("Spaceship3.png");
-        spaceShip3.scale(240, 200);
+        spaceShip3.scale(180, 140);
         
         //spaceships to cycle through when user presses next
         characters = new GreenfootImage[] { spaceShip1, spaceShip2, spaceShip3 };
@@ -38,6 +40,9 @@ public class CharacterSelection extends World
         characterDisplay.setRotation(-90);
         
         powerLabel = new Label(powers[indexShips], 30);
+        Color offWhite = new Color(251, 247, 245);
+        powerLabel.setLineColor(offWhite);
+        powerLabel.setFillColor(offWhite);
         
         // Add the instruction label to the screen
         addObject(powerLabel, 250, 550);
@@ -77,6 +82,8 @@ public class CharacterSelection extends World
     
     //back to the menu screen
     public void goMenuScreen() {
-        Greenfoot.setWorld(new MenuScreen());
+        menuScreen.whichShip = indexShips + 1;
+        menuScreen.updateImage();
+        Greenfoot.setWorld(menuScreen);
     }
 }
