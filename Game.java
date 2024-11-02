@@ -114,10 +114,6 @@ public class Game extends World
                     if(lastPressed.equals(currentWord.substring(0,1))) { // if input matches letter to be typed, remove it
                         subtractLetter();
                         //sound
-                        
-                        if(doubleLetters) {
-                            subtractLetter();
-                        }
                     }
                     else
                     {
@@ -136,7 +132,7 @@ public class Game extends World
                 lowestDistance = enemyHolder.get(word).distanceFrom();
                 currentWord = word;
                 subtractLetter();
-                break;
+                return;
             }
         }
         if(currentWord == null)
@@ -149,9 +145,6 @@ public class Game extends World
             
             enemy.label.setFillColor(Color.ORANGE);
             subtractLetter();
-            if(doubleLetters) {
-                subtractLetter();
-            }
             userShip.target = enemy;
         }
     }
@@ -168,7 +161,7 @@ public class Game extends World
                 destroyShip = new GreenfootSound("destroyShip.mp3");
                 destroyShip.setVolume(75);
                 destroyShip.play();
-                
+
                 userShip.target = null;
 
                 removeFromMap(enemy);
