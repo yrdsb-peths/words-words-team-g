@@ -5,6 +5,7 @@ public class MainShip extends Actor
     int whichShip;
     Enemy target = null;
     Label jammed = new Label("Jammed", 20);
+    SimpleTimer invincibleFrames = new SimpleTimer();
     public MainShip(int spaceShip)
     {
         GreenfootImage spaceShipImage = new GreenfootImage("Spaceship" + spaceShip + ".png");
@@ -25,6 +26,7 @@ public class MainShip extends Actor
         }
         setImage(spaceShipImage); 
         jammed.setLineColor(Color.YELLOW);
+        invincibleFrames.mark();
     }
     
     public void act()
@@ -37,6 +39,7 @@ public class MainShip extends Actor
         {
             turnTowards(this.getX(), 0);
         }
+        checkTouching();
     }
     
     public void turnToEnemy(Enemy enemy)
@@ -52,5 +55,26 @@ public class MainShip extends Actor
     public void removeJammed()
     {
         getWorld().removeObject(jammed);
+    }
+    
+    public void checkTouching()
+    {
+         if (isTouching(Enemy.class)  && invincibleFrames.millisElapsed() > 3000) { // remove if touching ship
+            Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
+            Game game = (Game) getWorld();
+            if (game.hasForcefield) {
+                Forcefield forcefield = new Forcefield();
+                getWorld().addObject(forcefield, this.getX(), this.getY());
+                game.hasForcefield = false;
+                game.currentWord = null;
+                invincibleFrames.mark();
+            } else {
+                // Pass the score to GameOver constructor
+                game.gameMusic.stop();
+                GameOver gameover = new GameOver(game.getScore());
+                Greenfoot.setWorld(gameover);
+            }
+            enemy.removeEnemy();
+        }
     }
 }

@@ -8,10 +8,11 @@ public class InstructionScreen extends World
     private String[] instructions = {
         "Welcome to the game!",
         "Type the words of the \n attacking ships to destroy them!",
-        "When user types the \n wrong letter, gun will get jammed",
-        "User can only attack \n one ship until it is destroyed",
-        "One new enemy will be \n spawned each round" 
-
+        "When user types the wrong letter,\n  the gun will get jammed for a second.",
+        "Press \"backspace\" to \n switch your target.",
+        "One new enemy will be \n spawned each round.", 
+        "Keep the enemy ships away from yours.",
+        "Try to get the \n highest score possible!"
     };
     
     //used variables 

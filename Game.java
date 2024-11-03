@@ -4,7 +4,7 @@ import java.io.*;
 
 public class Game extends World
 {
-    private GreenfootSound gameMusic;
+    GreenfootSound gameMusic;
     private GreenfootSound destroyShip;
     int score = 0; 
     Label scoreLabel; 
@@ -27,6 +27,7 @@ public class Game extends World
     int jamTime = 1000;
     SimpleTimer jamTimer = new SimpleTimer();
     MainShip userShip;
+    int scoreMultiplier;
     
     public Game(int difficulty,int whichShip, int enemySpeed)
     {    
@@ -69,6 +70,7 @@ public class Game extends World
         waveLabel.setFillColor(OFF_WHITE);
         scoreLabel = new Label("Score: " + score, 40); // Initialize score label
         addObject(scoreLabel, getWidth() - 80, 20); // Position top right
+        scoreMultiplier = difficulty;
     }
 
     public void act() {
