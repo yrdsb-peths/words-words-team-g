@@ -6,11 +6,11 @@ public class HighScore extends World {
   private static final int MAX_SCORES = 5;
   private List<Label> scoreLabels = new ArrayList<>();
 
-  public HighScore() {
+  public HighScore(MenuScreen menuScreen) {
     super(500, 700, 1);
     setBackground(new GreenfootImage("Background.jpg"));
 
-    menuScreen = new MenuScreen();
+    this.menuScreen = menuScreen;
 
     addObject(new Button(this::goMenuScreen, "Menu"), 250, 600);
 

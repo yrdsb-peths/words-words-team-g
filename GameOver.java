@@ -16,7 +16,7 @@ public class GameOver extends World {
         super(500, 700, 1);
         this.finalScore = finalScore;
         menuScreen = new MenuScreen();
-        highScore = new HighScore();
+        highScore = new HighScore(menuScreen);
         setBackground(new GreenfootImage("Background.jpg"));
         
         DisplayGameOver();
@@ -50,7 +50,7 @@ public class GameOver extends World {
             if (key.equals("enter") && !userName.trim().isEmpty()) {
                 NameScore playerInfo = new NameScore(userName, finalScore); // Use final score
                 addHighScore(playerInfo);
-                Label saved = new Label("Score has been svaed", 40);
+                Label saved = new Label("Score has been saved", 40);
                 addObject(saved, 250, 300);
 
                 inputAccepted = false;
@@ -80,6 +80,7 @@ public class GameOver extends World {
     }
 
     public void goMenuScreen() {
+        menuScreen.started();
         Greenfoot.setWorld(menuScreen);
     }
 
