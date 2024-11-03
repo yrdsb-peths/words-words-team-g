@@ -1,38 +1,77 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 
-public class HighScore extends World
-{
-    private MenuScreen menuScreen;
+public class HighScore extends World {
+  private MenuScreen menuScreen;
+  private static final int MAX_SCORES = 5;
+  private List<Label> scoreLabels = new ArrayList<>();
 
-    public HighScore(MenuScreen menuScreen)
-    {    
-        super(500, 700, 1);
-        setBackground(new GreenfootImage("Background.jpg"));
-        
-        this.menuScreen = menuScreen;
-        
-        addObject(new Button(this::goMenuScreen, "Menu"), 250,  + 600);
+  public HighScore() {
+    super(500, 700, 1);
+    setBackground(new GreenfootImage("Background.jpg"));
 
-        displayHighScores();
+    menuScreen = new MenuScreen();
+
+    addObject(new Button(this::goMenuScreen, "Menu"), 250, 600);
+
+    displayHighScores();
+  }
+
+  public void displayHighScores() {
+    // y-intercept
+    int yint = 150;
+    int Header_FontSize = 30;
+    int Label_FontSize = 25;
+    int rank = 1;
+
+    // Clear existing score labels
+    for (Label label : scoreLabels) {
+      removeObject(label);
+    }
+    scoreLabels.clear();
+
+    // Get and sort the scores
+    List<NameScore> sortedScores = getSortTopScore();
+
+    Label title = new Label("High Score", 50);
+    addObject(title, getWidth() / 2, 70);
+
+    Label headerRank = new Label("Rank", Header_FontSize);
+    Label headerName = new Label("Name", Header_FontSize);
+    Label headerScore = new Label("Score", Header_FontSize);
+
+    addObject(headerRank, 100, yint);
+    addObject(headerName, 250, yint);
+    addObject(headerScore, 400, yint);
+
+    yint += 50;
+
+    for (NameScore name : sortedScores) {
+      Label rankLabel = new Label(rank, Label_FontSize);
+      Label nameLabel = new Label(name.getName(), Label_FontSize);
+      Label scoreLabel = new Label(String.valueOf(name.getScores()), Label_FontSize);
+
+      addObject(rankLabel, 100, yint);
+      addObject(nameLabel, 250, yint);
+      addObject(scoreLabel, 400, yint);
+
+      rank++;
+      yint += 50;
+    }
+  }
+
+  private List<NameScore> getSortTopScore() {
+    List<NameScore> score = new ArrayList<>(GameOver.UserNames);
+    Collections.sort(score);
+
+    if (score.size() > MAX_SCORES) {
+      score = score.subList(0, MAX_SCORES);
     }
 
-    public void displayHighScores() {
-        int yint = 150;
-        Label title = new Label("High Score:", 50);
-        addObject(title, 250, 90);
-    
-        for (NameScore playerinfo : GameOver.UserNames) {
-          
-    
-          Label scoreLabel = new Label(playerinfo.getName() + ": " + playerinfo.getScores(), 40);
-          addObject(scoreLabel, getWidth() / 2, yint);
-    
-          yint += 50;
-        }
-      }
+    return score;
+  }
 
-    public void goMenuScreen() {
-        Greenfoot.setWorld(menuScreen);
-    }
+  public void goMenuScreen() {
+    Greenfoot.setWorld(menuScreen);
+  }
 }
