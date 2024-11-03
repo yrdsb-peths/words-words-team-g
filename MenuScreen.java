@@ -84,7 +84,7 @@ public class MenuScreen extends World
     }
     
     public void goHighScores() {
-        Greenfoot.setWorld(new HighScore(this));
+        Greenfoot.setWorld(new HighScore());
     }
     
     public void goCharacterSelection() {

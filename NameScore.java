@@ -1,6 +1,7 @@
 import greenfoot.Actor;
+import java.util.*;
 
-public class NameScore extends Actor {
+public class NameScore extends Actor  implements Comparable <NameScore>{
   String PlayerName;
   int PlayerScores;
   
@@ -15,5 +16,9 @@ public class NameScore extends Actor {
 
   public int getScores() {
     return PlayerScores;
+  }
+
+  public int compareTo(NameScore other) {
+    return Integer.compare(other.PlayerScores, this.PlayerScores);
   }
 }
