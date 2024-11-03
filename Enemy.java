@@ -41,10 +41,10 @@ public class Enemy extends Actor
     {
         Game game = (Game) getWorld();
         game.removeObject(label);
-        game.currentWord = null;
         game.removeFromMap(this);
-        game.hasForcefield = false;
         game.removeObject(this);
+        game.score++; // Increment score when an enemy is destroyed
+        game.scoreLabel.setValue("Score: " + game.score); // Update score label
     }
     
     public void checkTouching() {
@@ -54,6 +54,8 @@ public class Enemy extends Actor
             if (game.hasForcefield) {
                 Forcefield forcefield = new Forcefield();
                 getWorld().addObject(forcefield, ship.getX(), ship.getY());
+                game.hasForcefield = false;
+                game.currentWord = null;
             } else {
                 // Pass the score to GameOver constructor
                 GameOver gameover = new GameOver(game.getScore());

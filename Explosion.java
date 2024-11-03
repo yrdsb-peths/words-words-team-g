@@ -20,14 +20,14 @@ public class Explosion extends Actor {
   }
 
   public void checkTouching() {
-    if(getIntersectingObjects(Enemy.class).size() > 1) { 
-    List<Enemy> a = getIntersectingObjects(Enemy.class);
+    if(isTouching(Enemy.class)) { 
+        List<Enemy> a = getIntersectingObjects(Enemy.class);
 
-      for(Enemy enemy : a) { // Get all enemies touching
-        if(!enemy.equals(initialEnemy)) {
-          subtracting(enemy);
+        for(Enemy enemy : a) { // Get all enemies touching
+            if(!enemy.equals(initialEnemy)) {
+              subtracting(enemy);
+            }
         }
-      }
     }
   }
 
@@ -36,7 +36,7 @@ public class Explosion extends Actor {
       Game game = (Game) getWorld();
       game.subtractLetter(enemy);
       if(enemy != null) { // subtracts two letters
-        game.subtractLetter(enemy);
+          game.subtractLetter(enemy);
       }
     }
   }
@@ -44,8 +44,8 @@ public class Explosion extends Actor {
   public void loadimage() {
     explosionImage = new GreenfootImage[totalframe];
     for (int i = 0; i < explosionImage.length; i++) {
-      explosionImage[i] = new GreenfootImage("images/ExplosionAnimation/tile00" + i + ".png");
-      explosionImage[i].scale(150, 150);
+        explosionImage[i] = new GreenfootImage("images/ExplosionAnimation/tile00" + i + ".png");
+        explosionImage[i].scale(150, 150);
     }
   }
 
@@ -56,14 +56,14 @@ public class Explosion extends Actor {
     }
     animationTimer.mark();
     if (currentframe < explosionImage.length) {
-      setImage(explosionImage[currentframe]);
-      if(currentframe == 0) {
-        checkTouching();
-      }
-      currentframe++;
+        setImage(explosionImage[currentframe]);
+        if(currentframe == 0) {
+            checkTouching();
+        }
+        currentframe++;
     }
     else{
-      getWorld().removeObject(this);
+        getWorld().removeObject(this);
     }
   }
 

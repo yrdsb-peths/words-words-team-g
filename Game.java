@@ -6,8 +6,8 @@ public class Game extends World
 {
     private GreenfootSound gameMusic;
     private GreenfootSound destroyShip;
-    private int score = 0; 
-    private Label scoreLabel; 
+    int score = 0; 
+    Label scoreLabel; 
     
     HashMap<String, Enemy> enemyHolder = new HashMap<>();
     HashMap<String, Enemy> sameLetterEnemy = new HashMap<>();
@@ -135,8 +135,6 @@ public class Game extends World
             if(word.substring(0,1).equals(lastPressed) && enemyHolder.get(word).distanceFrom() < lowestDistance) {
                 lowestDistance = enemyHolder.get(word).distanceFrom();
                 currentWord = word;
-                subtractLetter();
-                return;
             }
         }
         if(currentWord == null)
@@ -158,40 +156,19 @@ public class Game extends World
         if(currentWord == null) {
             return;
         }
-        if(currentWord.length() <= 1) { // remove everything if word is compeleted
-            removeFromMap(enemy);
-            destroyShip = new GreenfootSound("destroyShip.mp3");
-            destroyShip.setVolume(75);
-            destroyShip.play();
-            removeObject(enemy.label);
-            userShip.target = null;
-            removeObject(enemy);
-            currentWord = null;
-            score++; // Increment score when an enemy is destroyed
-            scoreLabel.setValue("Score: " + score); // Update score label
-        }
         else {
-            String newWord = currentWord.substring(1); //remove first letter from label
-            enemy.label.setValue(newWord);
-        }
-        if(currentWord != null) {
             if(currentWord.length() <= 1) { // remove everything if word is compeleted
-                makeExplosion(enemy);
-
+                String newWord = currentWord.substring(1); //remove first letter from label
+                enemy.label.setValue(newWord);
+                Laser laser = new Laser(doubleLetters, enemy);
+                addObject(laser,userShip.getX(),userShip.getY());
                 destroyShip = new GreenfootSound("destroyShip.mp3");
                 destroyShip.setVolume(75);
                 destroyShip.play();
-
-                userShip.target = null;
-
-                removeFromMap(enemy);
-                removeObject(enemy.label);
-                removeObject(enemy);
-
                 currentWord = null;
+                userShip.target = null;
             }
             else {
-                makeExplosion(enemy);
                 String newWord = currentWord.substring(1); //remove first letter from label
                 enemy.label.setValue(newWord);
     
@@ -216,9 +193,7 @@ public class Game extends World
     
             if(surroundingWord != null) {
                 if(surroundingWord.length() <= 1) { // remove everything if word is compeleted
-                    removeFromMap(enemy);
-                    removeObject(enemy.label);
-                    removeObject(enemy);
+                    enemy.removeEnemy();
                     surroundingWord = null;
                 }
                 else {
@@ -230,10 +205,6 @@ public class Game extends World
                 }
             }
         }    
-    }
-
-    public void makeExplosion(Enemy enemy) {
-        addObject(new Explosion(enemy), enemy.getX(), enemy.getY());
     }
 
     public void checkCleared()
