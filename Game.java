@@ -6,6 +6,8 @@ public class Game extends World
 {
     private GreenfootSound gameMusic;
     private GreenfootSound destroyShip;
+    int score = 0; 
+    Label scoreLabel; 
     
     HashMap<String, Enemy> enemyHolder = new HashMap<>();
     HashMap<String, Enemy> sameLetterEnemy = new HashMap<>();
@@ -58,26 +60,15 @@ public class Game extends World
         userShip = new MainShip(whichShip);
         addObject(userShip, 250, 600);
         userShip.turnTowards(250, 0);
-        try { // Adds all the words from text file to an arraylist
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("words.txt"));
-            String currentLine;
-            do {
-                currentLine = bufferedReader.readLine();
-                words.add(currentLine);
-                currentLine = bufferedReader.readLine();
-            } while(currentLine != null);
-            bufferedReader.close();
-        } 
-        catch (IOException e) {
-            System.out.println("Error reading textfile");
-            System.out.println("Error: " + e.toString());
-        }
+        loadWords();
         spawnTimer.mark();
         pauseTimer.mark();
         jamTimer.mark();
         waveLabel = new Label("Wave " + wave, 60);
         Color OFF_WHITE = new Color(251, 247, 245);
         waveLabel.setFillColor(OFF_WHITE);
+        scoreLabel = new Label("Score: " + score, 40); // Initialize score label
+        addObject(scoreLabel, getWidth() - 80, 20); // Position top right
     }
 
     public void act() {
@@ -86,6 +77,20 @@ public class Game extends World
         userInput();
     }
  
+    public void loadWords() {
+        try { // Adds all the words from text file to an arraylist
+            Scanner scanner = new Scanner(new File("words.txt"));
+            while(scanner.hasNextLine()) {
+                String word = scanner.nextLine();
+                words.add(word);
+            }
+            scanner.close();
+        } 
+        catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
     public void userInput() {
         String lastPressed = Greenfoot.getKey();
         if(jamTimer.millisElapsed() < jamTime)
@@ -113,10 +118,6 @@ public class Game extends World
                     if(lastPressed.equals(currentWord.substring(0,1))) { // if input matches letter to be typed, remove it
                         subtractLetter();
                         //sound
-                        
-                        if(doubleLetters) {
-                            subtractLetter();
-                        }
                     }
                     else
                     {
@@ -146,37 +147,65 @@ public class Game extends World
             
             enemy.label.setFillColor(Color.ORANGE);
             subtractLetter();
-            if(doubleLetters) {
-                subtractLetter();
-            }
             userShip.target = enemy;
         }
     }
 
-    public void subtractLetter() {
+    public void subtractLetter() { // Initial enemy
         Enemy enemy = enemyHolder.get(currentWord); // specific enemy
         if(currentWord == null) {
             return;
         }
-        if(currentWord.length() <= 1) { // remove everything if word is compeleted
-            removeFromMap(enemy);
-            destroyShip = new GreenfootSound("destroyShip.mp3");
-            destroyShip.setVolume(75);
-            destroyShip.play();
-            removeObject(enemy.label);
-            userShip.target = null;
-            removeObject(enemy);
-            currentWord = null;
+        else 
+        {
+            if(currentWord.length() <= 1) { // remove everything if word is compeleted
+                String newWord = currentWord.substring(1); //remove first letter from label
+                enemy.label.setValue(newWord);
+                Laser laser = new Laser(doubleLetters, enemy);
+                addObject(laser,userShip.getX(),userShip.getY());
+                destroyShip = new GreenfootSound("destroyShip.mp3");
+                destroyShip.setVolume(75);
+                destroyShip.play();
+                currentWord = null;
+                userShip.target = null;
+            }
+            else {
+                String newWord = currentWord.substring(1); //remove first letter from label
+                enemy.label.setValue(newWord);
+    
+                enemyHolder.remove(currentWord);
+                enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
+    
+                currentWord = newWord;
+            }
         }
-        else {
-            String newWord = currentWord.substring(1); //remove first letter from label
-            enemy.label.setValue(newWord);
+    }
 
-            enemyHolder.remove(currentWord);
-            enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
-
-            currentWord = newWord;
-        }
+    public void subtractLetter(Enemy currentEnemy) { // Surrounding enemies
+        if(doubleLetters) {
+            Enemy enemy = currentEnemy;
+            String surroundingWord = null;
+    
+            for(String key : enemyHolder.keySet()) { // find string of enemy
+                if(enemyHolder.get(key).equals(enemy)) {
+                    surroundingWord = key;
+                }
+            }
+    
+            if(surroundingWord != null) {
+                if(surroundingWord.length() <= 1) { // remove everything if word is compeleted
+                    enemy.removeEnemy();
+                    surroundingWord = null;
+                }
+                else {
+                    String newWord = surroundingWord.substring(1); //remove first letter from label
+                    enemy.label.setValue(newWord);
+        
+                    enemyHolder.remove(surroundingWord);
+                    enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
+                }
+            }
+        }    
     }
 
     public void checkCleared()
@@ -252,6 +281,10 @@ public class Game extends World
         if(mapKey != "") {
             enemyHolder.remove(mapKey); // removes the enemy from the map
         }
+    }
+    
+    public int getScore() {
+        return score; // Provide score for GameOver screen
     }
 
     public void started() {

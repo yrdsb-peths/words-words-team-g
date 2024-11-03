@@ -2,18 +2,25 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 
 public class GameOver extends World {
+    private static final int MAX_SCORES = 5;
     public static ArrayList<NameScore> UserNames = new ArrayList<>();
     private MenuScreen menuScreen;
+    private HighScore highScore;
     private String ending = "GameOver";
     private String userName = "";
     private Label input;
     private boolean inputAccepted = true;
+    private int finalScore;
 
-    public GameOver() {
+    public GameOver(int finalScore) {
         super(500, 700, 1);
+        this.finalScore = finalScore;
         menuScreen = new MenuScreen();
+        highScore = new HighScore();
         setBackground(new GreenfootImage("Background.jpg"));
+        
         DisplayGameOver();
+
         addObject(new Button(this::goMenuScreen, "Menu"), 250, 600);
     }
 
@@ -22,14 +29,17 @@ public class GameOver extends World {
     }
 
     public void DisplayGameOver() {
-        Label end = new Label(ending, 40);
-        addObject(end, 250, 100);
+        Label end = new Label(ending, 60);
+        addObject(end, 250, 70);
+
+        Label scoreDisplay = new Label("Final Score: " + finalScore, 35);
+        addObject(scoreDisplay, 250, 120);
 
         Label name = new Label("Enter your name: ", 40);
-        addObject(name, 250, 150);
+        addObject(name, 250, 200);
 
         input = new Label("", 40);
-        addObject(input, 250, 200);
+        addObject(input, 250, 250);
     }
 
     public void requestName() {
@@ -37,17 +47,11 @@ public class GameOver extends World {
 
         String key = Greenfoot.getKey();
         if (key != null) {
-            if (key.equals("enter") && !userName.trim().isEmpty()) {  // Check for empty name
-                Random ran = new Random();
-                int testValue = ran.nextInt(10);
-                NameScore playerinfo = new NameScore(userName, testValue);
-                UserNames.add(playerinfo);
-
-                Label nameLabel = new Label("Player: " + userName, 40);
-                Label nameLabel2 = new Label("Score: " + playerinfo.getScores(), 40);
-
-                addObject(nameLabel, 250, 250);
-                addObject(nameLabel2, 250, 300);
+            if (key.equals("enter") && !userName.trim().isEmpty()) {
+                NameScore playerInfo = new NameScore(userName, finalScore); // Use final score
+                addHighScore(playerInfo);
+                Label saved = new Label("Score has been svaed", 40);
+                addObject(saved, 250, 300);
 
                 inputAccepted = false;
             } else if (key.equals("backspace")) {
@@ -65,7 +69,21 @@ public class GameOver extends World {
         }
     }
 
+    private void addHighScore(NameScore newScore) {
+        UserNames.add(newScore);
+        Collections.sort(UserNames);  // Sort in descending order
+        
+        // Keep only top 10 scores
+        if (UserNames.size() > MAX_SCORES) {
+            UserNames = new ArrayList<>(UserNames.subList(0, MAX_SCORES));
+        }
+    }
+
     public void goMenuScreen() {
         Greenfoot.setWorld(menuScreen);
+    }
+
+    public void goHighScoreScreen() {
+        Greenfoot.setWorld(highScore);
     }
 }

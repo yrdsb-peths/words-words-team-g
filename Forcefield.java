@@ -1,6 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.io.*;
+
 public class Forcefield extends Actor
 {
     SimpleTimer animationTimer = new SimpleTimer();
@@ -47,8 +48,11 @@ public class Forcefield extends Actor
     {
         if(isTouching(Enemy.class))
         {
-            Enemy touchingEnemy = (Enemy)getOneIntersectingObject(Enemy.class);
-            touchingEnemy.removeEnemy();
+            List<Enemy> a = getIntersectingObjects(Enemy.class);
+
+            for(Enemy enemy : a) { // Get all enemies touching 
+                enemy.removeEnemy();
+            }
         }
     }
 }
