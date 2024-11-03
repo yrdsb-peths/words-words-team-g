@@ -6,8 +6,8 @@ public class Game extends World
 {
     private GreenfootSound gameMusic;
     private GreenfootSound destroyShip;
-    private int score = 0; 
-    private Label scoreLabel; 
+    int score = 0; 
+    Label scoreLabel; 
     
     HashMap<String, Enemy> enemyHolder = new HashMap<>();
     HashMap<String, Enemy> sameLetterEnemy = new HashMap<>();
@@ -173,6 +173,27 @@ public class Game extends World
         else {
             String newWord = currentWord.substring(1); //remove first letter from label
             enemy.label.setValue(newWord);
+        else {
+            if(currentWord.length() <= 1) { // remove everything if word is compeleted
+                String newWord = currentWord.substring(1); //remove first letter from label
+                enemy.label.setValue(newWord);
+                Laser laser = new Laser(doubleLetters, enemy);
+                addObject(laser,userShip.getX(),userShip.getY());
+                destroyShip = new GreenfootSound("destroyShip.mp3");
+                destroyShip.setVolume(75);
+                destroyShip.play();
+                currentWord = null;
+                userShip.target = null;
+            }
+            else {
+                String newWord = currentWord.substring(1); //remove first letter from label
+                enemy.label.setValue(newWord);
+    
+                enemyHolder.remove(currentWord);
+                enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
+    
+                currentWord = newWord;
+            }
         }
         if(currentWord != null) {
             if(currentWord.length() <= 1) { // remove everything if word is compeleted
@@ -234,6 +255,33 @@ public class Game extends World
 
     public void makeExplosion(Enemy enemy) {
         addObject(new Explosion(enemy), enemy.getX(), enemy.getY());
+    }
+
+    public void subtractLetter(Enemy currentEnemy) { // Surrounding enemies
+        if(doubleLetters) {
+            Enemy enemy = currentEnemy;
+            String surroundingWord = null;
+    
+            for(String key : enemyHolder.keySet()) { // find string of enemy
+                if(enemyHolder.get(key).equals(enemy)) {
+                    surroundingWord = key;
+                }
+            }
+    
+            if(surroundingWord != null) {
+                if(surroundingWord.length() <= 1) { // remove everything if word is compeleted
+                    enemy.removeEnemy();
+                    surroundingWord = null;
+                }
+                else {
+                    String newWord = surroundingWord.substring(1); //remove first letter from label
+                    enemy.label.setValue(newWord);
+        
+                    enemyHolder.remove(surroundingWord);
+                    enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
+                }
+            }
+        }    
     }
 
     public void checkCleared()

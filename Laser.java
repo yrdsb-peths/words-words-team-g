@@ -23,17 +23,22 @@ public class Laser extends Actor
     
     public void act()
     {
-        // Add your action code here.
         turnTowards(target.getX(), target.getY());
-        move(10);
+        move(20);
         checkTouching();
     }
     
     public void checkTouching()
     {
-        if(this.getX() < target.getX() + 10 && this.getX() > target.getX() - 10 && this.getY() < target.getY() + 10 && this.getY() > target.getY() - 10)
+        if(this.getX() < target.getX() + 20 && this.getX() > target.getX() - 20 && this.getY() < target.getY() + 20 && this.getY() > target.getY() - 20)
         {
+            makeExplosion();
             getWorld().removeObject(this);
+            target.removeEnemy();
         }
+    }
+    
+    public void makeExplosion() {
+        getWorld().addObject(new Explosion(target), target.getX(), target.getY());
     }
 }
