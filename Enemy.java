@@ -5,6 +5,7 @@ public class Enemy extends Actor
     int toX, toY;
     int speed;
     SimpleTimer moveTimer = new SimpleTimer();
+    SimpleTimer invincibleFrames = new SimpleTimer();
     Label label;
     String originalWord;
     public Enemy(int toX, int toY, int speed) { //Sets image
@@ -15,6 +16,7 @@ public class Enemy extends Actor
         this.toY = toY;
         this.speed = speed;
         moveTimer.mark();
+        invincibleFrames.mark();
         label = new Label("test", 30);
     }
 
@@ -48,7 +50,7 @@ public class Enemy extends Actor
     }
     
     public void checkTouching() {
-        if (isTouching(MainShip.class)) { // remove if touching ship
+        if (isTouching(MainShip.class) && invincibleFrames.millisElapsed() > 3000) { // remove if touching ship
             MainShip ship = (MainShip) getOneIntersectingObject(MainShip.class);
             Game game = (Game) getWorld();
             if (game.hasForcefield) {
@@ -56,6 +58,7 @@ public class Enemy extends Actor
                 getWorld().addObject(forcefield, ship.getX(), ship.getY());
                 game.hasForcefield = false;
                 game.currentWord = null;
+                invincibleFrames.mark();
             } else {
                 // Pass the score to GameOver constructor
                 GameOver gameover = new GameOver(game.getScore());

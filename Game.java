@@ -135,8 +135,6 @@ public class Game extends World
             if(word.substring(0,1).equals(lastPressed) && enemyHolder.get(word).distanceFrom() < lowestDistance) {
                 lowestDistance = enemyHolder.get(word).distanceFrom();
                 currentWord = word;
-                subtractLetter();
-                return;
             }
         }
         if(currentWord == null)
@@ -158,22 +156,8 @@ public class Game extends World
         if(currentWord == null) {
             return;
         }
-        if(currentWord.length() <= 1) { // remove everything if word is compeleted
-            removeFromMap(enemy);
-            destroyShip = new GreenfootSound("destroyShip.mp3");
-            destroyShip.setVolume(75);
-            destroyShip.play();
-            removeObject(enemy.label);
-            userShip.target = null;
-            removeObject(enemy);
-            currentWord = null;
-            score++; // Increment score when an enemy is destroyed
-            scoreLabel.setValue("Score: " + score); // Update score label
-        }
-        else {
-            String newWord = currentWord.substring(1); //remove first letter from label
-            enemy.label.setValue(newWord);
-        else {
+        else 
+        {
             if(currentWord.length() <= 1) { // remove everything if word is compeleted
                 String newWord = currentWord.substring(1); //remove first letter from label
                 enemy.label.setValue(newWord);
@@ -195,66 +179,6 @@ public class Game extends World
                 currentWord = newWord;
             }
         }
-        if(currentWord != null) {
-            if(currentWord.length() <= 1) { // remove everything if word is compeleted
-                makeExplosion(enemy);
-
-                destroyShip = new GreenfootSound("destroyShip.mp3");
-                destroyShip.setVolume(75);
-                destroyShip.play();
-
-                userShip.target = null;
-
-                removeFromMap(enemy);
-                removeObject(enemy.label);
-                removeObject(enemy);
-
-                currentWord = null;
-            }
-            else {
-                makeExplosion(enemy);
-                String newWord = currentWord.substring(1); //remove first letter from label
-                enemy.label.setValue(newWord);
-    
-                enemyHolder.remove(currentWord);
-                enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
-    
-                currentWord = newWord;
-            }
-        }
-    }
-
-    public void subtractLetter(Enemy currentEnemy) { // Surrounding enemies
-        if(doubleLetters) {
-            Enemy enemy = currentEnemy;
-            String surroundingWord = null;
-    
-            for(String key : enemyHolder.keySet()) { // find string of enemy
-                if(enemyHolder.get(key).equals(enemy)) {
-                    surroundingWord = key;
-                }
-            }
-    
-            if(surroundingWord != null) {
-                if(surroundingWord.length() <= 1) { // remove everything if word is compeleted
-                    removeFromMap(enemy);
-                    removeObject(enemy.label);
-                    removeObject(enemy);
-                    surroundingWord = null;
-                }
-                else {
-                    String newWord = surroundingWord.substring(1); //remove first letter from label
-                    enemy.label.setValue(newWord);
-        
-                    enemyHolder.remove(surroundingWord);
-                    enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
-                }
-            }
-        }    
-    }
-
-    public void makeExplosion(Enemy enemy) {
-        addObject(new Explosion(enemy), enemy.getX(), enemy.getY());
     }
 
     public void subtractLetter(Enemy currentEnemy) { // Surrounding enemies
