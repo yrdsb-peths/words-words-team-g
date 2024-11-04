@@ -8,7 +8,7 @@ public class InstructionScreen extends World
     private String[] instructions = {
         "Welcome to the game!",
         "Type the words of the \n attacking ships to destroy them!",
-        "When user types the wrong letter,\n  the gun will get jammed for a second.",
+        "When you type the wrong letter,\n  the gun will be jammed for 0.8s",
         "Press \"backspace\" to \n switch your target.",
         "One new enemy will be \n spawned each round.", 
         "Keep the enemy ships away from yours.",

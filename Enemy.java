@@ -4,6 +4,7 @@ public class Enemy extends Actor
 {   
     int toX, toY;
     int speed;
+    boolean isRemoved = true;
     SimpleTimer moveTimer = new SimpleTimer();
     SimpleTimer invincibleFrames = new SimpleTimer();
     Label label;
@@ -22,6 +23,7 @@ public class Enemy extends Actor
 
     public void act()
     {
+        isRemoved = false;
         if (getY() < toY) {
             turnTowards(toX, toY);
         }
@@ -46,6 +48,7 @@ public class Enemy extends Actor
         game.removeObject(this);
         game.score += game.scoreMultiplier; // Increment score when an enemy is destroyed
         game.scoreLabel.setValue("Score: " + game.score); // Update score label
+        isRemoved = true;
     }
     
     public double distanceFrom()

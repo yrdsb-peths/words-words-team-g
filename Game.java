@@ -24,7 +24,7 @@ public class Game extends World
     int enemySpeed;
     boolean clearedWave = true;
     boolean doubleLetters = false;
-    int jamTime = 1000;
+    int jamTime = 800;
     SimpleTimer jamTimer = new SimpleTimer();
     MainShip userShip;
     int scoreMultiplier;
@@ -46,7 +46,7 @@ public class Game extends World
         {
             hasForcefield = false;
             doubleLetters = false;
-            jamTime = 500;
+            jamTime /= 5;
         }
         else if(whichShip == 2)
         {

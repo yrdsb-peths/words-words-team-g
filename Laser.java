@@ -23,9 +23,16 @@ public class Laser extends Actor
     
     public void act()
     {
-        turnTowards(target.getX(), target.getY());
-        move(20);
-        checkTouching();
+        if(target.isRemoved == true)
+        {
+            getWorld().removeObject(this);
+        }
+        else
+        {
+            turnTowards(target.getX(), target.getY());
+            move(20);
+            checkTouching();
+        }
     }
     
     public void checkTouching()
