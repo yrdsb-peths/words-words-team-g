@@ -3,8 +3,7 @@ import java.util.*;
 
 public class HighScore extends World {
   private MenuScreen menuScreen;
-  private static final int MAX_SCORES = 5;
-  private List<Label> scoreLabels = new ArrayList<>();
+  private static final int MAX_SCORES = 5; // Maxmium numbers of score that are accepted
 
   public HighScore() {
     super(500, 700, 1);
@@ -21,14 +20,8 @@ public class HighScore extends World {
     // y-intercept
     int yint = 150;
     int Header_FontSize = 30;
-    int Label_FontSize = 25;
+    int Label_FontSize = 30;
     int rank = 1;
-
-    // Clear existing score labels
-    for (Label label : scoreLabels) {
-      removeObject(label);
-    }
-    scoreLabels.clear();
 
     // Get and sort the scores
     List<NameScore> sortedScores = getSortTopScore();
@@ -46,6 +39,7 @@ public class HighScore extends World {
 
     yint += 50;
 
+    // looping over the sorted Player Info (rank, name, score)
     for (NameScore name : sortedScores) {
       Label rankLabel = new Label(rank, Label_FontSize);
       Label nameLabel = new Label(name.getName(), Label_FontSize);
@@ -60,6 +54,7 @@ public class HighScore extends World {
     }
   }
 
+  // sorting the Player Info descendingly
   private List<NameScore> getSortTopScore() {
     List<NameScore> score = new ArrayList<>(GameOver.UserNames);
     Collections.sort(score);
