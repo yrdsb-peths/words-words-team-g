@@ -1,24 +1,23 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Write a description of class ModeScreen here.
  * 
- * @author (your name) 
+ * @author (your name)
  * @version (a version number or a date)
  */
-public class ModeScreen extends World
-{
+public class ModeScreen extends World {
     MenuScreen menuScreen;
+
     /**
      * Constructor for objects of class ModeScreen.
      * 
      */
-    public ModeScreen(MenuScreen menuScreen)
-    {    
+    public ModeScreen(MenuScreen menuScreen) {
         super(500, 700, 1);
-        setBackground(new GreenfootImage("Background.jpg")); 
+        setBackground(new GreenfootImage("Background.jpg"));
         addObject(new Button(this::hardMode, "Hard"), 250, 360);
-        addObject(new Button(this::mediumMode, "Medium"), 250, 310); 
+        addObject(new Button(this::mediumMode, "Medium"), 250, 310);
         addObject(new Button(this::easyMode, "Easy"), 250, 260);
         addObject(new Button(this::extremeMode, "Extreme"), 250, 410);
         addObject(new Button(this::goMenu, "Menu"), 250, 460);
@@ -29,41 +28,36 @@ public class ModeScreen extends World
         addObject(instructionLabel, 250, 200);
         this.menuScreen = menuScreen;
     }
-    
-    public void easyMode()
-    {
+
+    public void easyMode() {
         goGame(1);
     }
-    
-    public void mediumMode()
-    {
+
+    public void mediumMode() {
         goGame(2);
     }
-    
-    public void hardMode()
-    {
+
+    public void hardMode() {
         goGame(3);
     }
-    
-    public void extremeMode()
-    {
+
+    public void extremeMode() {
         goGame(4);
     }
-    
-    public void goGame(int difficulty)
-    {
+
+    public void goGame(int difficulty) {
         int enemySpeed;
-        switch(difficulty) {
-            case 1:  // Easy
+        switch (difficulty) {
+            case 1: // Easy
                 enemySpeed = 3;
                 break;
-            case 2:  // Medium
+            case 2: // Medium
                 enemySpeed = 5;
                 break;
-            case 3:  // Hard
+            case 3: // Hard
                 enemySpeed = 9;
                 break;
-            case 4:  // Extreme
+            case 4: // Extreme
                 enemySpeed = 13;
                 break;
             default:
@@ -72,9 +66,8 @@ public class ModeScreen extends World
         menuScreen.menuMusic.stop();
         Greenfoot.setWorld(new Game(difficulty, menuScreen.whichShip, enemySpeed));
     }
-    
-    public void goMenu()
-    {
+
+    public void goMenu() {
         Greenfoot.setWorld(menuScreen);
     }
 }

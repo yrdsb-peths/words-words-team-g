@@ -18,7 +18,7 @@ public class GameOver extends World {
         menuScreen = new MenuScreen();
         highScore = new HighScore(menuScreen);
         setBackground(new GreenfootImage("Background.jpg"));
-        
+
         DisplayGameOver();
 
         addObject(new Button(this::goMenuScreen, "Menu"), 250, 600);
@@ -43,7 +43,8 @@ public class GameOver extends World {
     }
 
     public void requestName() {
-        if (!inputAccepted) return;
+        if (!inputAccepted)
+            return;
 
         String key = Greenfoot.getKey();
         if (key != null) {
@@ -58,7 +59,7 @@ public class GameOver extends World {
                 if (userName.length() > 0) {
                     userName = userName.substring(0, userName.length() - 1);
                 }
-            } else if (key.length() == 1 && userName.length() < 20) {  // Add character limit
+            } else if (key.length() == 1 && userName.length() < 20) { // Add character limit
                 // Check for shift and add character accordingly
                 if (Greenfoot.isKeyDown("shift")) {
                     key = key.toUpperCase();
@@ -71,8 +72,8 @@ public class GameOver extends World {
 
     private void addHighScore(NameScore newScore) {
         UserNames.add(newScore);
-        Collections.sort(UserNames);  // Sort in descending order
-        
+        Collections.sort(UserNames); // Sort in descending order
+
         // Keep only top 10 scores
         if (UserNames.size() > MAX_SCORES) {
             UserNames = new ArrayList<>(UserNames.subList(0, MAX_SCORES));

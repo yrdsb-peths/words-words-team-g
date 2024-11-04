@@ -1,14 +1,14 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-public class Enemy extends Actor
-{   
+public class Enemy extends Actor {
     int toX, toY;
     int speed;
     SimpleTimer moveTimer = new SimpleTimer();
     SimpleTimer invincibleFrames = new SimpleTimer();
     Label label;
     String originalWord;
-    public Enemy(int toX, int toY, int speed) { //Sets image
+
+    public Enemy(int toX, int toY, int speed) { // Sets image
         GreenfootImage enemyShip = new GreenfootImage("EnemySpaceship.png");
         enemyShip.scale(70, 60);
         setImage(enemyShip);
@@ -20,16 +20,14 @@ public class Enemy extends Actor
         label = new Label("test", 30);
     }
 
-    public void act()
-    {
+    public void act() {
         if (getY() < toY) {
             turnTowards(toX, toY);
         }
         moveEnemy();
     }
 
-    public void moveEnemy()
-    {
+    public void moveEnemy() {
         if (moveTimer.millisElapsed() < 40) {
             return;
         }
@@ -37,9 +35,8 @@ public class Enemy extends Actor
         move(speed); // Move enemy by the speed value
         label.setLocation(getX(), getY());
     }
-    
-    public void removeEnemy()
-    {
+
+    public void removeEnemy() {
         Game game = (Game) getWorld();
         game.removeObject(label);
         game.removeFromMap(this);
@@ -47,9 +44,8 @@ public class Enemy extends Actor
         game.score += game.scoreMultiplier; // Increment score when an enemy is destroyed
         game.scoreLabel.setValue("Score: " + game.score); // Update score label
     }
-    
-    public double distanceFrom()
-    {
+
+    public double distanceFrom() {
         double distanceX = toX - this.getX();
         double distanceY = toY - this.getY();
         return Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));

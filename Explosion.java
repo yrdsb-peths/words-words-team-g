@@ -20,23 +20,23 @@ public class Explosion extends Actor {
   }
 
   public void checkTouching() {
-    if(isTouching(Enemy.class)) { 
-        List<Enemy> a = getIntersectingObjects(Enemy.class);
+    if (isTouching(Enemy.class)) {
+      List<Enemy> a = getIntersectingObjects(Enemy.class);
 
-        for(Enemy enemy : a) { // Get all enemies touching
-            if(!enemy.equals(initialEnemy)) {
-              subtracting(enemy);
-            }
+      for (Enemy enemy : a) { // Get all enemies touching
+        if (!enemy.equals(initialEnemy)) {
+          subtracting(enemy);
         }
+      }
     }
   }
 
   public void subtracting(Enemy enemy) {
-    if(!enemy.equals(initialEnemy)) {
+    if (!enemy.equals(initialEnemy)) {
       Game game = (Game) getWorld();
       game.subtractLetter(enemy);
-      if(enemy != null) { // subtracts two letters
-          game.subtractLetter(enemy);
+      if (enemy != null) { // subtracts two letters
+        game.subtractLetter(enemy);
       }
     }
   }
@@ -44,26 +44,24 @@ public class Explosion extends Actor {
   public void loadimage() {
     explosionImage = new GreenfootImage[totalframe];
     for (int i = 0; i < explosionImage.length; i++) {
-        explosionImage[i] = new GreenfootImage("images/ExplosionAnimation/tile00" + i + ".png");
-        explosionImage[i].scale(150, 150);
+      explosionImage[i] = new GreenfootImage("images/ExplosionAnimation/tile00" + i + ".png");
+      explosionImage[i].scale(150, 150);
     }
   }
 
   public void animateimage() {
-    if(animationTimer.millisElapsed() < 40)
-    {
-        return;
+    if (animationTimer.millisElapsed() < 40) {
+      return;
     }
     animationTimer.mark();
     if (currentframe < explosionImage.length) {
-        setImage(explosionImage[currentframe]);
-        if(currentframe == 0) {
-            checkTouching();
-        }
-        currentframe++;
-    }
-    else{
-        getWorld().removeObject(this);
+      setImage(explosionImage[currentframe]);
+      if (currentframe == 0) {
+        checkTouching();
+      }
+      currentframe++;
+    } else {
+      getWorld().removeObject(this);
     }
   }
 
