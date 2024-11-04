@@ -88,6 +88,8 @@ public class GameOver extends World {
 
     public void goMenuScreen() {
         menuScreen.started();
+        GameOverMusic.stop();
+        YouLose.stop();
         Greenfoot.setWorld(menuScreen);
     }
 

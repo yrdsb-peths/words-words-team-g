@@ -63,10 +63,12 @@ public class MainShip extends Actor
             Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
             Game game = (Game) getWorld();
             if (game.hasForcefield) {
+                game.jamTimer.mark();
+                game.hasForcefield = false;
+                target = null;
+                game.currentWord = null;
                 Forcefield forcefield = new Forcefield();
                 getWorld().addObject(forcefield, this.getX(), this.getY());
-                game.hasForcefield = false;
-                game.currentWord = null;
                 invincibleFrames.mark();
             } else {
                 // Pass the score to GameOver constructor
@@ -74,7 +76,6 @@ public class MainShip extends Actor
                 GameOver gameover = new GameOver(game.getScore());
                 Greenfoot.setWorld(gameover);
             }
-            enemy.removeEnemy();
         }
     }
 }

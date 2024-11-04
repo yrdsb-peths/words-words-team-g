@@ -10,7 +10,7 @@ public class CharacterSelection extends World
     
     //powers of each character
     private String[] powers = {
-        "Reload avatar: the jammed time\ngoes down to 0.5s",
+        "Reload avatar: the jammed time\ngoes down to 0.16s",
         "Explosion avatar: the explosion now\nknocks down two letters off any\nenemy caught in the explosion",
         "Forcefield avatar: User has another\nlife, when they lose their\nfirst life an energy\nshield/blast will destroy \nevery enemy on the map\n(Only happens once per game)"
     };
