@@ -1,18 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class ModeScreen here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class ModeScreen extends World
 {
     MenuScreen menuScreen;
-    /**
-     * Constructor for objects of class ModeScreen.
-     * 
-     */
+
     public ModeScreen(MenuScreen menuScreen)
     {    
         super(500, 700, 1);
