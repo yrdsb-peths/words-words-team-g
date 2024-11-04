@@ -11,6 +11,8 @@ public class GameOver extends World {
     private Label input;
     private boolean inputAccepted = true;
     private int finalScore;
+    GreenfootSound GameOverMusic;
+    GreenfootSound YouLose;
 
     public GameOver(int finalScore) {
         super(500, 700, 1);
@@ -22,6 +24,11 @@ public class GameOver extends World {
         DisplayGameOver();
 
         addObject(new Button(this::goMenuScreen, "Menu"), 250, 600);
+        
+        GameOverMusic = new GreenfootSound("GameOverMusic.mp3"); 
+        YouLose = new GreenfootSound("YouLose.mp3"); 
+        GameOverMusic.playLoop();
+        YouLose.play();
     }
 
     public void act() {
@@ -86,5 +93,16 @@ public class GameOver extends World {
 
     public void goHighScoreScreen() {
         Greenfoot.setWorld(highScore);
+    }
+    
+    public void started() {
+        // Ensure the music resumes when the world starts
+        GameOverMusic.playLoop();
+    }
+    
+    public void stopped() {
+        // Pause the music when the world is stopped
+        YouLose.pause();
+        GameOverMusic.pause();
     }
 }

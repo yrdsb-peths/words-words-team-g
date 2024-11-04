@@ -1,5 +1,4 @@
 import greenfoot.Actor;
-import java.util.*;
 
 public class NameScore extends Actor  implements Comparable <NameScore>{
   String PlayerName;

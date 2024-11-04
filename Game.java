@@ -41,7 +41,7 @@ public class Game extends World
         gameMusic.setVolume(50);
         gameMusic.playLoop();
         
-        //mainship
+        //mainship abilities
         if(whichShip == 1)
         {
             hasForcefield = false;
@@ -94,7 +94,7 @@ public class Game extends World
     }
 
     public void userInput() {
-        String lastPressed = Greenfoot.getKey();
+        String lastPressed = Greenfoot.getKey(); // Key user last inputted
         if(jamTimer.millisElapsed() < jamTime)
         {
             lastPressed = null;
@@ -104,7 +104,7 @@ public class Game extends World
         {
             userShip.removeJammed();
         }
-        if(lastPressed != null) {
+        if(lastPressed != null) { // Only runs if user pressed a key
             if(currentWord == null) { // If word has not been selected
                 selectWord(lastPressed);
                 return;
@@ -139,7 +139,7 @@ public class Game extends World
                 currentWord = word;
             }
         }
-        if(currentWord == null)
+        if(currentWord == null) // If letter inputted does not correspond to any word, jam gun
         {
             jamTimer.mark();
         }
@@ -163,7 +163,7 @@ public class Game extends World
             if(currentWord.length() <= 1) { // remove everything if word is compeleted
                 String newWord = currentWord.substring(1); //remove first letter from label
                 enemy.label.setValue(newWord);
-                Laser laser = new Laser(doubleLetters, enemy);
+                Laser laser = new Laser(doubleLetters, enemy); // Laser animation if last letter
                 addObject(laser,userShip.getX(),userShip.getY());
                 destroyShip = new GreenfootSound("destroyShip.mp3");
                 destroyShip.setVolume(75);
@@ -212,7 +212,7 @@ public class Game extends World
 
     public void checkCleared()
     {
-        if(enemyHolder.isEmpty() && enemiesInWave.size() == 0 && clearedWave == false)
+        if(enemyHolder.isEmpty() && enemiesInWave.size() == 0 && clearedWave == false) // If all enemies are spawened and removed, new wave
         {
             wave++;
             clearedWave = true;
@@ -227,9 +227,9 @@ public class Game extends World
             removeObject(waveLabel);
             if(clearedWave == true)
             {
-                for(int i = 0; i < wave; i++)
+                for(int i = 0; i < wave; i++) // Spawns enemies based on wave number
                 {
-                    enemiesInWave.add(new Enemy(250, 600,enemySpeed));
+                    enemiesInWave.add(new Enemy(250, 600, enemySpeed));
                 }
                 clearedWave = false;
             }
@@ -237,22 +237,22 @@ public class Game extends World
         }
         else
         {
-            waveLabel.setValue("Wave " + wave);
+            waveLabel.setValue("Wave " + wave); // Start of wave label
             addObject(waveLabel, getWidth()/2, getHeight()/2);
         }
     }
     
     public void loadEnemies()
     {
-        if(enemiesInWave.size() > 0 && spawnTimer.millisElapsed()>1500 - wave * 25)
+        if(enemiesInWave.size() > 0 && spawnTimer.millisElapsed()>1500 - wave * 25) // Spawns enemies over time
         {
-            int startX = Greenfoot.getRandomNumber(500);
+            int startX = Greenfoot.getRandomNumber(500); // Random spawn at the top of screen
             Enemy enemy = enemiesInWave.get(0);
             addObject(enemy, startX, 0);
-            addObject(enemy.label, startX, 0);
+            addObject(enemy.label, startX, 0); // Label containing the word
             int randomWordIndex;
             boolean wordExists = false;
-            do { // No duplicate words in 
+            do { // No duplicate words for enemies
                 randomWordIndex = Greenfoot.getRandomNumber(words.size() - 1);
                 for(String key : enemyHolder.keySet()) {
                     if(enemyHolder.get(key).originalWord.equals(words.get(randomWordIndex))) {
@@ -263,7 +263,7 @@ public class Game extends World
                     }
                 }
             } while(wordExists == true);
-            String randomWord = words.get(randomWordIndex);
+            String randomWord = words.get(randomWordIndex); // Set the random word to the label
             enemy.label.setValue(randomWord);
             enemy.originalWord = randomWord;
             enemyHolder.put(randomWord, enemy);

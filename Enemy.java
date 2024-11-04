@@ -5,6 +5,7 @@ public class Enemy extends Actor
     int toX, toY;
     int speed;
     SimpleTimer moveTimer = new SimpleTimer();
+    SimpleTimer invincibleFrames = new SimpleTimer();
     Label label;
     String originalWord;
     public Enemy(int toX, int toY, int speed) { //Sets image
@@ -15,6 +16,7 @@ public class Enemy extends Actor
         this.toY = toY;
         this.speed = speed;
         moveTimer.mark();
+        invincibleFrames.mark();
         label = new Label("test", 30);
     }
 
