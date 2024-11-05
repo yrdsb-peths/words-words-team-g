@@ -36,6 +36,11 @@ public class MenuScreen extends World
         // Add the instruction label to the screen
         addObject(instructionLabel, 250, 200);
         
+        Label titleLabel = new Label("Word Fighters", 80);
+        titleLabel.setFillColor(Color.ORANGE);
+        titleLabel.setLineColor(Color.RED);
+        addObject(titleLabel, getWidth()/2, 100);
+        
         GreenfootImage spaceShipImage = new GreenfootImage("Spaceship" + whichShip + ".png");
         if(whichShip == 1)
         {

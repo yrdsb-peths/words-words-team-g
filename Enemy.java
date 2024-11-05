@@ -43,12 +43,15 @@ public class Enemy extends Actor
     public void removeEnemy()
     {
         Game game = (Game) getWorld();
-        game.removeObject(label);
-        game.removeFromMap(this);
-        game.removeObject(this);
-        game.score += game.scoreMultiplier; // Increment score when an enemy is destroyed
-        game.scoreLabel.setValue("Score: " + game.score); // Update score label
-        isRemoved = true;
+        if(isRemoved == false)
+        {
+            game.removeObject(label);
+            game.removeFromMap(this);
+            game.removeObject(this);
+            game.score += game.scoreMultiplier; // Increment score when an enemy is destroyed
+            game.scoreLabel.setValue("Score: " + game.score); // Update score label
+            isRemoved = true;
+        }
     }
     
     public double distanceFrom()

@@ -169,6 +169,7 @@ public class Game extends World
                 destroyShip.setVolume(75);
                 destroyShip.play();
                 currentWord = null;
+                removeFromMap(enemy);
                 userShip.target = null;
             }
             else {
