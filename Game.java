@@ -69,7 +69,7 @@ public class Game extends World
         Color OFF_WHITE = new Color(251, 247, 245);
         waveLabel.setFillColor(OFF_WHITE);
         scoreLabel = new Label("Score: " + score, 40); // Initialize score label
-        addObject(scoreLabel, getWidth() - 80, 20); // Position top right
+        addObject(scoreLabel, getWidth() - 100, 20); // Position top right
         scoreMultiplier = difficulty;
     }
 
