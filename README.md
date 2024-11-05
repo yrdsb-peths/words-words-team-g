@@ -11,7 +11,7 @@ Word Fighter
 
 1. **HashMap<String, Enemy>**: 
    - **Location**: `Game` class
-   - **Purpose**: This map holds the enemies, allowing for quick access and management of enemies based on their identifiers. This is particularly useful for checking and updating enemy states in the game.
+   - **Purpose**: This map holds the enemy objects, allowing for quick access and management of enemies based on their identifiers. This is particularly useful for checking and updating enemy states in the game.
 
 2. **List<Enemy>**: 
    - **Location**: `Explosion` and `Forcefield` classes
