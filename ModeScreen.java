@@ -7,12 +7,16 @@ public class ModeScreen extends World
     public ModeScreen(MenuScreen menuScreen)
     {    
         super(500, 700, 1);
-        setBackground(new GreenfootImage("Background.jpg")); 
+        setBackground(new GreenfootImage("Background.jpg"));
+
+        // Choices for user to pick difficulty
         addObject(new Button(this::hardMode, "Hard"), 250, 360);
         addObject(new Button(this::mediumMode, "Medium"), 250, 310); 
         addObject(new Button(this::easyMode, "Easy"), 250, 260);
         addObject(new Button(this::extremeMode, "Extreme"), 250, 410);
         addObject(new Button(this::goMenu, "Menu"), 250, 460);
+
+        // Mode selection label
         Label instructionLabel = new Label("Select a mode", 30);
         Color offWhite = new Color(251, 247, 245);
         instructionLabel.setLineColor(offWhite);
@@ -21,6 +25,7 @@ public class ModeScreen extends World
         this.menuScreen = menuScreen;
     }
     
+    // Selects difficulty
     public void easyMode()
     {
         goGame(1);
@@ -41,6 +46,7 @@ public class ModeScreen extends World
         goGame(4);
     }
     
+    // Sets game speed based on difficulty
     public void goGame(int difficulty)
     {
         int enemySpeed;
@@ -61,6 +67,8 @@ public class ModeScreen extends World
                 enemySpeed = 5;
         }
         menuScreen.menuMusic.stop();
+
+        // Changes to game screen
         Greenfoot.setWorld(new Game(difficulty, menuScreen.whichShip, enemySpeed));
     }
     

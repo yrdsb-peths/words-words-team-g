@@ -36,11 +36,13 @@ public class MenuScreen extends World
         // Add the instruction label to the screen
         addObject(instructionLabel, 250, 200);
         
+        // Title label
         Label titleLabel = new Label("Word Fighters", 80);
         titleLabel.setFillColor(Color.ORANGE);
         titleLabel.setLineColor(Color.RED);
         addObject(titleLabel, getWidth()/2, 100);
         
+        // Resizing and adding mini spaceship in corner of screen
         GreenfootImage spaceShipImage = new GreenfootImage("Spaceship" + whichShip + ".png");
         if(whichShip == 1)
         {
@@ -88,10 +90,12 @@ public class MenuScreen extends World
         Greenfoot.setWorld(new ModeScreen(this));
     }
     
+    // going to high scores
     public void goHighScores() {
         Greenfoot.setWorld(new HighScore(this));
     }
     
+    // going to character selection
     public void goCharacterSelection() {
         Greenfoot.setWorld(new CharacterSelection(this));
     }
