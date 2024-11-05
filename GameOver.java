@@ -22,8 +22,6 @@ public class GameOver extends World {
         setBackground(new GreenfootImage("Background.jpg"));
         
         DisplayGameOver();
-
-        addObject(new Button(this::goMenuScreen, "Menu"), 250, 600);
         
         GameOverMusic = new GreenfootSound("GameOverMusic.mp3"); 
         YouLose = new GreenfootSound("YouLose.mp3"); 
@@ -45,6 +43,9 @@ public class GameOver extends World {
         Label name = new Label("Enter your name: ", 40);
         addObject(name, 250, 200);
 
+        Label enter = new Label("Press Enter to Continue", 35);
+        addObject(enter, 250, 600);
+
         input = new Label("", 40);
         addObject(input, 250, 250);
     }
@@ -57,8 +58,7 @@ public class GameOver extends World {
             if (key.equals("enter") && !userName.trim().isEmpty()) {
                 NameScore playerInfo = new NameScore(userName, finalScore); // Use final score
                 addHighScore(playerInfo);
-                Label saved = new Label("Score has been saved", 40);
-                addObject(saved, 250, 300);
+                goMenuScreen();
 
                 inputAccepted = false;
             } else if (key.equals("backspace")) {

@@ -19,6 +19,7 @@ public class Enemy extends Actor
         moveTimer.mark();
         invincibleFrames.mark();
         label = new Label("test", 30);
+        label.setLineColor(Color.WHITE);
     }
 
     public void act()
