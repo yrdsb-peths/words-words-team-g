@@ -32,7 +32,7 @@ public class Explosion extends Actor {
   }
 
   public void subtracting(Enemy enemy) {
-    if(!enemy.equals(initialEnemy)) {
+    if(!enemy.equals(initialEnemy)) { // Explosion only affects words around original word
       Game game = (Game) getWorld();
       game.subtractLetter(enemy);
       if(enemy != null) { // subtracts two letters
@@ -41,6 +41,7 @@ public class Explosion extends Actor {
     }
   }
 
+  // Loads and scales frames of explosion
   public void loadimage() {
     explosionImage = new GreenfootImage[totalframe];
     for (int i = 0; i < explosionImage.length; i++) {
@@ -49,6 +50,7 @@ public class Explosion extends Actor {
     }
   }
 
+  // Explosion animation
   public void animateimage() {
     if(animationTimer.millisElapsed() < 40)
     {
@@ -57,12 +59,12 @@ public class Explosion extends Actor {
     animationTimer.mark();
     if (currentframe < explosionImage.length) {
         setImage(explosionImage[currentframe]);
-        if(currentframe == 0) {
+        if(currentframe == 0) { // Check for touching words only once
             checkTouching();
         }
         currentframe++;
     }
-    else{
+    else{ // Remove when animation is over
         getWorld().removeObject(this);
     }
   }
