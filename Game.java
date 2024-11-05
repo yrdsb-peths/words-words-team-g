@@ -165,8 +165,8 @@ public class Game extends World
             
             enemy.label.setFillColor(Color.ORANGE);
             enemy.label.setLineColor(Color.ORANGE);
-            subtractLetter();
             userShip.target = enemy;
+            subtractLetter();
         }
     }
 
@@ -216,15 +216,24 @@ public class Game extends World
     
             if(surroundingWord != null) {
                 if(surroundingWord.length() <= 1) { // remove everything if word is compeleted
+                    if(enemy == userShip.target)
+                    {
+                        currentWord = null;
+                        userShip.target = null;
+                    }
                     enemy.removeEnemy();
                     surroundingWord = null;
                 }
                 else {
                     String newWord = surroundingWord.substring(1); //remove first letter from label
                     enemy.label.setValue(newWord);
-        
+                    
                     enemyHolder.remove(surroundingWord);
                     enemyHolder.put(newWord, enemy); // re-add to map, so the remains of the word matches what user sees
+                    if(enemy == userShip.target)
+                    {
+                        currentWord = newWord;
+                    }
                 }
             }
         }    
