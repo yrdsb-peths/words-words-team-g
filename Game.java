@@ -28,7 +28,7 @@ public class Game extends World
     SimpleTimer jamTimer = new SimpleTimer();
     MainShip userShip;
     int scoreMultiplier;
-    
+    Color OFF_WHITE = new Color(251, 247, 245);
     public Game(int difficulty,int whichShip, int enemySpeed)
     {    
         //creating new world
@@ -66,7 +66,6 @@ public class Game extends World
         pauseTimer.mark();
         jamTimer.mark();
         waveLabel = new Label("Wave " + wave, 60);
-        Color OFF_WHITE = new Color(251, 247, 245);
         waveLabel.setFillColor(OFF_WHITE);
         scoreLabel = new Label("Score: " + score, 40); // Initialize score label
         addObject(scoreLabel, getWidth() - 100, 20); // Position top right
@@ -113,6 +112,7 @@ public class Game extends World
                 if(lastPressed.equals("backspace")) { // allows user to select another word
                     Enemy enemy = enemyHolder.get(currentWord); // specific enemy
                     enemy.label.setFillColor(Color.WHITE);
+                    enemy.label.setLineColor(Color.WHITE);
                     currentWord = null;
                     userShip.target = null;
                 }
