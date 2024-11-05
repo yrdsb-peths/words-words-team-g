@@ -21,8 +21,8 @@ Word Fighter
    - **Location**: `Label` class
    - **Purpose**: This class manages the display of scores and other text in the game, using Greenfoot's image manipulation capabilities to create a visually appealing score display.
 4. **Arrays**
-   -**Location**: `GameOver` and `HighScore`
-   -**Purpose**: We used the arraylist in GameOver to store the name and score. In HighScores we got the values from the GameOver class and sorted the "scores" to displayed them on the screen with rankings. 
+   - **Location**: `GameOver` and `HighScore`
+   - **Purpose**: We used the arraylist in GameOver to store the name and score. In HighScores we got the values from the GameOver class and sorted the "scores" to displayed them on the screen with rankings. 
    
 ## Additional Notes
 - The game features a visually appealing interface, where users can intuitively navigate through different menus and options without needing extensive instructions.
