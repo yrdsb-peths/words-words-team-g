@@ -148,6 +148,7 @@ public class Game extends World
             Enemy enemy = enemyHolder.get(currentWord); // specific enemy
             
             enemy.label.setFillColor(Color.ORANGE);
+            enemy.label.setLineColor(Color.ORANGE);
             subtractLetter();
             userShip.target = enemy;
         }
