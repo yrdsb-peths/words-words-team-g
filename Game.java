@@ -6,28 +6,33 @@ public class Game extends World
 {
     GreenfootSound gameMusic;
     private GreenfootSound destroyShip;
-    int score = 0; 
+    
+    String currentWord;
     Label scoreLabel; 
+    Label waveLabel;
+    MainShip userShip;
     
     HashMap<String, Enemy> enemyHolder = new HashMap<>();
     HashMap<String, Enemy> sameLetterEnemy = new HashMap<>();
-    SimpleTimer timer = new SimpleTimer();
+    
     ArrayList<String> words = new ArrayList<>();
     ArrayList<Enemy> enemiesInWave = new ArrayList<Enemy>();
+    
+    SimpleTimer timer = new SimpleTimer();
     SimpleTimer spawnTimer = new SimpleTimer();
     SimpleTimer pauseTimer = new SimpleTimer();
-    Label waveLabel;
-    String currentWord;
+    SimpleTimer jamTimer = new SimpleTimer();
+
     
-    boolean hasForcefield = false;
+    int score = 0; 
     int wave = 1;
     int enemySpeed;
+    int scoreMultiplier;
+    int jamTime = 800;
+    boolean hasForcefield = false;
     boolean clearedWave = true;
     boolean doubleLetters = false;
-    int jamTime = 800;
-    SimpleTimer jamTimer = new SimpleTimer();
-    MainShip userShip;
-    int scoreMultiplier;
+    
     Color OFF_WHITE = new Color(251, 247, 245);
     public Game(int difficulty,int whichShip, int enemySpeed)
     {    
@@ -58,26 +63,36 @@ public class Game extends World
             hasForcefield = true;
             doubleLetters = false;
         }
-        userShip = new MainShip(whichShip);
-        addObject(userShip, 250, 600);
-        userShip.turnTowards(250, 0);
+        
         loadWords();
         spawnTimer.mark();
         pauseTimer.mark();
         jamTimer.mark();
+        
+        userShip = new MainShip(whichShip);
+        addObject(userShip, 250, 600);
+        userShip.turnTowards(250, 0);
+        
         waveLabel = new Label("Wave " + wave, 60);
-        waveLabel.setFillColor(OFF_WHITE);
+        
         scoreLabel = new Label("Score: " + score, 40); // Initialize score label
         addObject(scoreLabel, getWidth() - 100, 20); // Position top right
+        waveLabel.setFillColor(OFF_WHITE);
         scoreMultiplier = difficulty;
     }
 
+    /**
+     * creates enemies and checks if screen is cleared then checks for user inputs. 
+     */
     public void act() {
         createEnemies();
         checkCleared();
         userInput();
     }
  
+    /**
+     * loading words from file
+     */
     public void loadWords() {
         try { // Adds all the words from text file to an arraylist
             Scanner scanner = new Scanner(new File("words.txt"));
@@ -92,6 +107,7 @@ public class Game extends World
         }
     }
 
+    
     public void userInput() {
         String lastPressed = Greenfoot.getKey(); // Key user last inputted
         if(jamTimer.millisElapsed() < jamTime)
@@ -166,10 +182,12 @@ public class Game extends World
                 enemy.label.setValue(newWord);
                 Laser laser = new Laser(doubleLetters, enemy); // Laser animation if last letter
                 addObject(laser,userShip.getX(),userShip.getY());
+                
                 destroyShip = new GreenfootSound("destroyShip.mp3");
                 destroyShip.setVolume(75);
                 destroyShip.play();
                 currentWord = null;
+    
                 removeFromMap(enemy);
                 userShip.target = null;
             }
@@ -212,6 +230,9 @@ public class Game extends World
         }    
     }
 
+    /**
+     * Checks if the wave is cleared and prepares for the next wave
+     */
     public void checkCleared()
     {
         if(enemyHolder.isEmpty() && enemiesInWave.size() == 0 && clearedWave == false) // If all enemies are spawened and removed, new wave
@@ -222,6 +243,9 @@ public class Game extends World
         }
     }
     
+    /**
+     * Creates enemies at the start of each wave
+     */
     public void createEnemies()
     {
         if(pauseTimer.millisElapsed() > 3000)
@@ -244,6 +268,9 @@ public class Game extends World
         }
     }
     
+    /**
+     * Loads enemies with unique words from the words list
+     */
     public void loadEnemies()
     {
         if(enemiesInWave.size() > 0 && spawnTimer.millisElapsed()>1500 - wave * 25) // Spawns enemies over time
@@ -275,6 +302,9 @@ public class Game extends World
         }
     }
 
+    /**
+     * Removes an enemy from the map by its corresponding string key
+     */
     public void removeFromMap(Enemy enemy) {
         String mapKey = "";
         for(String key : enemyHolder.keySet()) {
@@ -287,15 +317,24 @@ public class Game extends World
         }
     }
     
+    /**
+     * Returns the current score of the player
+     */
     public int getScore() {
         return score; // Provide score for GameOver screen
     }
 
+    /**
+     * Starts the background music when the game starts
+     */
     public void started() {
         // Ensure the music resumes when the world starts
         gameMusic.playLoop();
     }
     
+    /**
+     * stops the background music
+     */
     public void stopped() {
         // Pause the music when the world is stopped
         gameMusic.pause();
