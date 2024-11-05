@@ -22,8 +22,6 @@ public class GameOver extends World {
         setBackground(new GreenfootImage("Background.jpg"));
         
         DisplayGameOver();
-
-        addObject(new Button(this::goMenuScreen, "Menu"), 250, 600);
         
         GameOverMusic = new GreenfootSound("GameOverMusic.mp3"); 
         YouLose = new GreenfootSound("YouLose.mp3"); 
