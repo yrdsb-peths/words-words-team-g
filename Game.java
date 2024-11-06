@@ -294,13 +294,11 @@ public class Game extends World
             int randomWordIndex;
             boolean wordExists = false;
             do { // No duplicate words for enemies
-                randomWordIndex = Greenfoot.getRandomNumber(words.size() - 1);
+                randomWordIndex = Greenfoot.getRandomNumber(words.size());
+                wordExists = false;
                 for(String key : enemyHolder.keySet()) {
                     if(enemyHolder.get(key).originalWord.equals(words.get(randomWordIndex))) {
                         wordExists = true;
-                    }
-                    else {
-                        wordExists = false;
                     }
                 }
             } while(wordExists == true);
