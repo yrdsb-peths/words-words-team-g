@@ -45,7 +45,7 @@ public class Explosion extends Actor {
    * If the enemy is not the same one as the explosion was created on top of, then it will subtract 2 lettters from it.
    */
   public void subtracting(Enemy enemy) {
-    if(!enemy.equals(initialEnemy)) {
+    if(!enemy.equals(initialEnemy)) { // Explosion only affects words around original word
       Game game = (Game) getWorld();
       game.explosionSubtract(enemy);
       if(enemy != null) { // subtracts two letters
@@ -76,12 +76,12 @@ public class Explosion extends Actor {
     animationTimer.mark();
     if (currentframe < explosionImage.length) {
         setImage(explosionImage[currentframe]);
-        if(currentframe == 0) {
+        if(currentframe == 0) { // Check for touching words only once
             checkTouching();
         }
         currentframe++;
     }
-    else{
+    else{ // Remove when animation is over
         getWorld().removeObject(this);
     }
   }
