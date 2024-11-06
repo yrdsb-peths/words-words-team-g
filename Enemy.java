@@ -2,13 +2,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class Enemy extends Actor
 {   
-    int toX, toY;
+    int toX, toY; //Coordinates for where the enemy is going to go towards.
     int speed;
-    boolean isRemoved = true;
+    boolean isRemoved = true; 
     SimpleTimer moveTimer = new SimpleTimer();
-    SimpleTimer invincibleFrames = new SimpleTimer();
     Label label;
     String originalWord;
+    
+    /**
+     * This is a constructor for the enemy class that sets up the variables needed for the class and assigns an image and label to the object.
+     */
     public Enemy(int toX, int toY, int speed) { //Sets image
         GreenfootImage enemyShip = new GreenfootImage("EnemySpaceship.png");
         enemyShip.scale(70, 60);
@@ -17,11 +20,13 @@ public class Enemy extends Actor
         this.toY = toY;
         this.speed = speed;
         moveTimer.mark();
-        invincibleFrames.mark();
         label = new Label("test", 30);
         label.setLineColor(Color.WHITE);
     }
 
+    /**
+     * Act method to continously run code.
+     */
     public void act()
     {
         isRemoved = false;
@@ -31,6 +36,9 @@ public class Enemy extends Actor
         moveEnemy();
     }
 
+    /**
+     * This method makes it so every 40 milliseconds enemy and assigned label will move the given speed.
+     */
     public void moveEnemy()
     {
         if (moveTimer.millisElapsed() < 40) {
@@ -41,9 +49,17 @@ public class Enemy extends Actor
         label.setLocation(getX(), getY());
     }
     
+    /**
+     * This method will remove the enemy from the world and change the Game world variables so that the game recognizes that the enemy no longer exists.
+     * It also increases the score.
+     */
     public void removeEnemy()
     {
         Game game = (Game) getWorld();
+        /*
+         * Because there is multiple ways for this method to be called, need to check if the object still exists in the world so code isn't run when
+         * object is no longer present in the world.
+         */
         if(isRemoved == false)
         {
             game.removeObject(label);
@@ -55,6 +71,9 @@ public class Enemy extends Actor
         }
     }
     
+    /**
+     * Returns the distance the enemy is from the given coordinates.
+     */
     public double distanceFrom()
     {
         double distanceX = toX - this.getX();

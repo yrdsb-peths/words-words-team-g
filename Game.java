@@ -203,7 +203,7 @@ public class Game extends World
         }
     }
 
-    public void subtractLetter(Enemy currentEnemy) { // Surrounding enemies
+    public void explosionSubtract(Enemy currentEnemy) { // Surrounding enemies
         if(doubleLetters) {
             Enemy enemy = currentEnemy;
             String surroundingWord = null;

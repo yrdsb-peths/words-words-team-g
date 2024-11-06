@@ -5,6 +5,9 @@ public class Laser extends Actor
     private GreenfootImage laserImage;
     Enemy target;
     
+    /**
+     * This is a constructor that sets up the image and the target for the class.
+     */
     public Laser(boolean doubleLetters, Enemy target)
     {
         if(doubleLetters == true)
@@ -21,7 +24,11 @@ public class Laser extends Actor
         this.target = target;
     }
     
-    public void act()
+    /**
+     * This method will make the object continously move towards the target until they are touching. If the target is already destroyed, the laser will
+     * disapear.
+     */
+     public void act()
     {
         if(target.isRemoved == true)
         {
@@ -35,6 +42,9 @@ public class Laser extends Actor
         }
     }
     
+    /**
+     * Checks if the object is touching the target. If it is, then it will create an explosion and remove itself and the target from the world.
+     */
     public void checkTouching()
     {
         if(this.getX() < target.getX() + 20 && this.getX() > target.getX() - 20 && this.getY() < target.getY() + 20 && this.getY() > target.getY() - 20)
@@ -45,6 +55,9 @@ public class Laser extends Actor
         }
     }
     
+    /**
+     * Makes an explosion on the target.
+     */
     public void makeExplosion() {
         getWorld().addObject(new Explosion(target), target.getX(), target.getY());
     }
