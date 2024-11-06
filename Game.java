@@ -206,7 +206,7 @@ public class Game extends World
     /**
      * removing letters from enemies when the correct letter is typed in, removing the whole thing when enemy is defeated. 
      */
-    public void subtractLetter(Enemy currentEnemy) { // Surrounding enemies
+    public void explosionSubtract(Enemy currentEnemy) { // Surrounding enemies
         if(doubleLetters) {
             Enemy enemy = currentEnemy;
             String surroundingWord = null;

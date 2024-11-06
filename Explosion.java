@@ -2,23 +2,33 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 
 public class Explosion extends Actor {
-  private GreenfootImage[] explosionImage;
-  private int totalframe = 10;
-  private int currentframe = 0;
+  private GreenfootImage[] explosionImage; //Holder for the images
+  private int totalframe = 10; //Total images for the animation
+  private int currentframe = 0; // Index for the explosionImage array
   Enemy initialEnemy;
   SimpleTimer animationTimer = new SimpleTimer();
 
+  /**
+   * This is a constructor that sets up all the variables needed for the explosion class.
+   */
   public Explosion(Enemy enemy) {
     loadimage();
     setImage(explosionImage[0]);
     animationTimer.mark();
-    initialEnemy = enemy; // Enemy explosion is from
+    initialEnemy = enemy; //Enemy explosion is created at which enemy
   }
 
+  /**
+   * This act method animates the object
+   */
   public void act() {
     animateimage();
   }
 
+  /**
+   * This code checks if the explsion is touching an object of the Enemy class. If it is, it will get all objects of the Enemy class and subtract 2
+   * letters from each of them.
+   */
   public void checkTouching() {
     if(isTouching(Enemy.class)) { 
         List<Enemy> a = getIntersectingObjects(Enemy.class);
@@ -31,17 +41,22 @@ public class Explosion extends Actor {
     }
   }
 
+  /**
+   * If the enemy is not the same one as the explosion was created on top of, then it will subtract 2 lettters from it.
+   */
   public void subtracting(Enemy enemy) {
     if(!enemy.equals(initialEnemy)) { // Explosion only affects words around original word
       Game game = (Game) getWorld();
-      game.subtractLetter(enemy);
+      game.explosionSubtract(enemy);
       if(enemy != null) { // subtracts two letters
-          game.subtractLetter(enemy);
+          game.explosionSubtract(enemy);
       }
     }
   }
 
-  // Loads and scales frames of explosion
+  /**
+   * Sets all the different explosion images needed for the animations into an array.
+   */
   public void loadimage() {
     explosionImage = new GreenfootImage[totalframe];
     for (int i = 0; i < explosionImage.length; i++) {
@@ -50,7 +65,9 @@ public class Explosion extends Actor {
     }
   }
 
-  // Explosion animation
+  /**
+   * Runs through each image of the array until the end, where the object will remove itself from the world.
+   */
   public void animateimage() {
     if(animationTimer.millisElapsed() < 40)
     {

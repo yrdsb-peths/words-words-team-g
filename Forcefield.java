@@ -8,6 +8,9 @@ public class Forcefield extends Actor
     private GreenfootSound ShieldBlast;
     int width = 20;
     int height = 20;
+    /**
+     * Constructor that sets up all the variables for the class.
+     */
     public Forcefield()
     {
         forcefieldImage = new GreenfootImage("Forcefield.png");
@@ -16,12 +19,19 @@ public class Forcefield extends Actor
         setImage(forcefieldImage);
     }
     
+    /**
+     * Will continously delete any enemy it is touching and will get larger.
+     */
     public void act()
     {
         deleteEnemy();
         animate();
     }
     
+    /**
+     * Every 5 milliseconds, the object will constantly get bigger, until it is twice the size of the height of the world. Then it will remove itself
+     * from the world. Also plays a sound when triggered.
+     */
     public void animate()
     {
         if(animationTimer.millisElapsed() < 5)
@@ -30,6 +40,10 @@ public class Forcefield extends Actor
         }
         ShieldBlast = new GreenfootSound("ShieldBlast.mp3");
         animationTimer.mark();
+        /*
+         * Need to create a new image each time it grows bigger because if you start small and scale image bigger, it will lose pixels and the image
+         * will look werid.
+         */
         forcefieldImage = new GreenfootImage("Forcefield.png");
         width += 20;
         height += 20;
@@ -43,6 +57,9 @@ public class Forcefield extends Actor
         }
     }
     
+    /**
+     * Gets a list of every enemy that the forcefield is touching and deletes them.
+     */
     public void deleteEnemy()
     {
         if(isTouching(Enemy.class))

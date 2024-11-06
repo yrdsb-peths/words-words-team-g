@@ -5,6 +5,9 @@ public class Button extends Actor {
     private String text;
     private GreenfootSound buttonClickSound;
 
+    /**
+     * This is a constructor for the button class that sets up the variables that the object needs
+     */
     public Button(Runnable action, String text) {
         this.action = action;
         this.text = text;
@@ -23,7 +26,9 @@ public class Button extends Actor {
         setImage(buttonImage); // Set the final button image
     }
 
-    //action
+    /**
+     * This act method will continuously check if the button is ever clicked. When it is, it will play a sound and run the action that is given.
+     */
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
             //setting sound
