@@ -3,7 +3,7 @@ import java.util.*;
 
 public class HighScore extends World {
   private MenuScreen menuScreen;
-  private static final int MAX_SCORES = 5; // Maxmium numbers of score that are accepted
+  private static final int MAX_SCORES = 5; // Maximum number of scores that are accepted
 
   public HighScore(MenuScreen menuScreen) {
     super(500, 700, 1);
@@ -19,8 +19,8 @@ public class HighScore extends World {
   public void displayHighScores() {
     // y-intercept
     int yint = 150;
-    int Header_FontSize = 30;
-    int Label_FontSize = 30;
+    int Header_FontSize = 30; // Font size for the header
+    int Label_FontSize = 30; // Font size for the label
     int rank = 1;
 
     // Get and sort the scores
@@ -54,11 +54,12 @@ public class HighScore extends World {
     }
   }
 
-  // sorting the Player Info descendingly
+  // Sort the player info in descending order
   private List<NameScore> getSortTopScore() {
     List<NameScore> score = new ArrayList<>(GameOver.UserNames);
     Collections.sort(score);
 
+    // Limit the list to the MAX_SCORES
     if (score.size() > MAX_SCORES) {
       score = score.subList(0, MAX_SCORES);
     }
@@ -66,6 +67,9 @@ public class HighScore extends World {
     return score;
   }
 
+   /**
+     * Transitions to the menu screen and handles music cleanup.
+     */
   public void goMenuScreen() {
     Greenfoot.setWorld(menuScreen);
   }

@@ -4,7 +4,7 @@ public class InstructionScreen extends World
 {
     private MenuScreen menuScreen;
     
-    //instruction list
+    // Array of instruction strings
     private String[] instructions = {
         "Welcome to the game!",
         "Type the words of the \n attacking ships to destroy them!",
@@ -15,14 +15,14 @@ public class InstructionScreen extends World
         "Try to get the \n highest score possible!"
     };
     
-    //used variables 
+    // Variables used in the class
     private Label instructionLabel;
     private int index = 0;
-    int button_Xint = 260;
+    private int buttonXPosition = 260;
 
     public InstructionScreen(MenuScreen menuScreen)
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+        // Create a new world with 500x700 cells with a cell size of 1x1 pixels
         super(500, 700, 1);
         setBackground(new GreenfootImage("Background.jpg"));
         this.menuScreen = menuScreen;
@@ -32,17 +32,15 @@ public class InstructionScreen extends World
         Color offWhite = new Color(251, 247, 245);
         instructionLabel.setLineColor(offWhite);
         instructionLabel.setFillColor(offWhite);
-        // Add the instruction label to the screen
         addObject(instructionLabel, 250, 200);
 
-        // Add Next and Previous buttons
-        addObject(new Button(this::nextInstruction, "Next"), 250, button_Xint);
-        addObject(new Button(this::previousInstruction, "Previous"), 250, button_Xint + 50);
-
-        addObject(new Button(this::goMenuScreen, "Menu"), 250, button_Xint + 100);
+        // Add "Next", "Previous", and "Menu" buttons
+        addObject(new Button(this::nextInstruction, "Next"), 250, buttonXPosition);
+        addObject(new Button(this::previousInstruction, "Previous"), 250, buttonXPosition + 50);
+        addObject(new Button(this::goMenuScreen, "Menu"), 250, buttonXPosition + 100);
     }
 
-    //go to the next instruction lines by changing index
+    // Method to display the next instruction
     public void nextInstruction() {
         if (index < instructions.length - 1) {
             index++;
@@ -50,7 +48,7 @@ public class InstructionScreen extends World
         }
     }
 
-    //go to previous instruction line by changing index
+    // Method to display the previous instruction
     public void previousInstruction() {
         if (index > 0) {
             index--;
@@ -58,7 +56,9 @@ public class InstructionScreen extends World
         }
     }
 
-    //going back to the menu screen
+    /**
+     * Transitions to the menu screen and handles music cleanup.
+     */
     public void goMenuScreen() {
         Greenfoot.setWorld(menuScreen);
     }
